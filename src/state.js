@@ -1,13 +1,13 @@
 export default class State {
   constructor() {
-    this._soundOn = true;
+    this.sound = true;
   }
 
   set soundOn(value) {
-    this._soundOn = value;
+    this.sound = value;
   }
 
   get soundOn() {
-    return this._soundOn;
+    return this.sound;
   }
 }

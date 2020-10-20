@@ -1,3 +1,5 @@
+import Phaser from 'phaser';
+
 export default class MainMenuScene extends Phaser.Scene {
   constructor() {
     super({ key: 'MainMenu' });
@@ -28,24 +30,18 @@ export default class MainMenuScene extends Phaser.Scene {
     this.playButtonText = this.add.text(0, 0, 'Enter the battlefield', { fontSize: '32px', fill: '#fff' });
     this.centerButtonText(this.playButtonText, this.playButton);
 
-    this.playButton.on(
-      'pointerdown',
-      (pointer) => {
-        this.sfx.btnPress.play();
-        this.scene.start('Main');
-      },
-    );
+    this.playButton.on('pointerdown', (pointer) => {
+      this.sfx.btnPress.play();
+      this.scene.start('Main');
+    });
 
     this.soundButton = this.add.image(40, 40, 'soundOff').setInteractive();
 
-    this.soundButton.on(
-      'pointerdown',
-      () => {
-        this.sfx.btnPress.play();
-        this.sys.game.globals.state.soundOn = !this.sys.game.globals.state.soundOn;
-        this.updateAudio();
-      },
-    );
+    this.soundButton.on('pointerdown', () => {
+      this.sfx.btnPress.play();
+      this.sys.game.globals.state.soundOn = !this.sys.game.globals.state.soundOn;
+      this.updateAudio();
+    });
 
     this.input.on('pointerover', (event, gameObjects) => {
       if (gameObjects[0].type === 'Sprite') {

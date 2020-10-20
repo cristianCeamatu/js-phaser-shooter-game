@@ -1,5 +1,13 @@
+import Phaser from 'phaser';
 import starfield from '../assets/img/starfield.png';
 import player from '../assets/img/player.png';
+import enemyBlue from '../assets/img/enemy-blue.png';
+import enemyGreen from '../assets/img/enemy-green.png';
+import enemyRed from '../assets/img/enemy-red.png';
+import enemyLaser from '../assets/img/rocketPlayer.png';
+
+import bullet from '../assets/img/bullet.png';
+import explosion from '../assets/img/explosion.png';
 import star from '../assets/img/star.png';
 import button from '../assets/img/button.png';
 import buttonPressed from '../assets/img/buttonPressed.png';
@@ -23,8 +31,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    const { width } = this.cameras.main;
-    const { height } = this.cameras.main;
+    const { width, height } = this.cameras.main;
 
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
@@ -90,8 +97,14 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('soundOn', soundOn);
 
     this.load.image('starfield', starfield);
-    this.load.image('ship', player);
+    this.load.image('player', player);
+    this.load.image('bullet', bullet);
+    this.load.image('enemyGreen', enemyGreen);
+    this.load.image('enemyBlue', enemyBlue);
+    this.load.image('enemyRed', enemyRed);
+    this.load.image('enemyLaser', enemyLaser);
     this.load.image('star', star);
+    this.load.spritesheet('explosion', explosion, { frameWidth: 128, frameHeight: 128 });
 
     this.load.audio('collectStarSound', collectStarSound);
     this.load.audio('explosionSound', explosionSound);

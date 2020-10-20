@@ -2,7 +2,7 @@ import Entity from './entity';
 
 export default class CarrierShip extends Entity {
   constructor(scene, x, y) {
-    super(scene, x, y, 'enemy2', 'CarrierShip');
+    super(scene, x, y, 'enemyBlue', 'CarrierShip');
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     // this.play('sprEnemy2')
     this.states = {
@@ -10,6 +10,7 @@ export default class CarrierShip extends Entity {
       CHASE: 'CHASE',
     };
     this.state = this.states.MOVE_DOWN;
+    this.setScale(0.25);
   }
 
   update() {

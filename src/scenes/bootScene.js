@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import logo from '../assets/img/favicon-32x32.png';
 
 export default class BootScene extends Phaser.Scene {
