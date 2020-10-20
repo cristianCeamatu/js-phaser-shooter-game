@@ -1,0 +1,53 @@
+{
+  "name": "template-eslint-stylelint",
+  "version": "1.0.0",
+  "description": "node_modules/",
+  "private": true,
+  "scripts": {
+    "jest": "jest",
+    "eslint": "eslint .",
+    "stylelint": "stylelint \"**/*.scss\"",
+    "fix": "stylelint --fix \"**/*.scss\" && eslint . --fix",
+    "test": "npm run fix && npm run stylelint && npm run eslint && echo '🎉 All test pass 🎉'",
+    "build": "webpack --mode=production",
+    "watch": "webpack --watch --mode=development",
+    "dev": "webpack-dev-server --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristianCeamatu/template-eslint-stylelint.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cristianCeamatu/template-eslint-stylelint/issues"
+  },
+  "homepage": "https://github.com/cristianCeamatu/template-eslint-stylelint#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.11.5",
+    "babel-eslint": "^10.1.0",
+    "css-loader": "^4.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "file-loader": "^6.1.0",
+    "jest": "^26.5.3",
+    "node-sass": "^4.14.1",
+    "sass": "^1.26.12",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.3.0",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-csstree-validator": "^1.8.0",
+    "stylelint-scss": "^3.17.2",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  }
+}
