@@ -47,7 +47,9 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.2",
+    "express": "^4.17.1",
     "jquery": "^3.5.1",
+    "phaser": "^3.24.1",
     "popper.js": "^1.16.1"
   }
 }
