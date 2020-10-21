@@ -1,7 +1,8 @@
 export default class State {
   constructor() {
     this.sound = true;
-    this.navsWidths = 150;
+    this.navsWidths = 180;
+    this.name = 'first';
   }
 
   set soundOn(value) {
@@ -18,5 +19,13 @@ export default class State {
 
   get navWidth() {
     return this.navsWidths;
+  }
+
+  set nickname(value) {
+    this.name = value;
+  }
+
+  get nickname() {
+    return this.name;
   }
 }

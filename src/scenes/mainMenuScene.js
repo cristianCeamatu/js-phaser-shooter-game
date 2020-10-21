@@ -6,10 +6,8 @@ export default class MainMenuScene extends Phaser.Scene {
   }
 
   create() {
-    console.log('main menu scene');
-
-    this.add.image(this.cameras.main.width - 40, 40, 'logo');
-    this.logoText = this.add.text(this.cameras.main.width - 70, 40, 'Microverse Fights', {
+    this.add.image(this.cameras.main.width - 160, 40, 'logo');
+    this.logoText = this.add.text(this.cameras.main.width - 20, 40, 'Shooters', {
       fontSize: '24px',
       fill: '#FFFFFF',
     });
@@ -23,14 +21,25 @@ export default class MainMenuScene extends Phaser.Scene {
     this.sfx.backgroundMusic.loop = true;
     if (this.sys.game.globals.state.soundOn) this.sfx.backgroundMusic.play();
 
+    this.welcomeText = this.add.text(
+      this.cameras.main.width / 2,
+      220,
+      `Are you ready ${this.sys.game.globals.state.nickname}? Leave the music on!`,
+      {
+        fontSize: '34px',
+        fill: '#FFFFFF',
+      }
+    );
+    this.welcomeText.setOrigin(0.5, 0.5);
+
     this.playButton = this.add.sprite(100, 200, 'button').setInteractive();
     this.playButton.scaleX = 2;
-    this.centerButton(this.playButton, 1);
+    this.centerButton(this.playButton);
 
     this.playButtonText = this.add.text(0, 0, 'Enter the battlefield', { fontSize: '32px', fill: '#fff' });
     this.centerButtonText(this.playButtonText, this.playButton);
 
-    this.playButton.on('pointerdown', (pointer) => {
+    this.playButton.on('pointerdown', () => {
       this.sfx.btnPress.play();
       this.scene.start('Main');
     });
@@ -73,8 +82,8 @@ export default class MainMenuScene extends Phaser.Scene {
         this.cameras.main.width / 2,
         this.cameras.main.height / 2 - offset * 100,
         this.cameras.main.width,
-        this.cameras.main.height,
-      ),
+        this.cameras.main.height
+      )
     );
   }
 

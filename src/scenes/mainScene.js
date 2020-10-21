@@ -3,6 +3,8 @@ import Player from '../objects/Player';
 import GunShip from '../objects/GunShip';
 import CarrierShip from '../objects/CarrierShip';
 import ChaserShip from '../objects/ChaserShip';
+import Leaderboard from '../objects/Leaderboard';
+import Text from '../objects/Text';
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -10,15 +12,26 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    const { navWidth } = this.sys.game.globals.state;
+    const { navWidth, nickname } = this.sys.game.globals.state;
     const { height, width } = this.game.config;
+    this.centerButton = this.scene.get('MainMenu').centerButton;
+    this.centerButtonText = this.scene.get('MainMenu').centerButtonText;
+    this.updateAudio = this.scene.get('MainMenu').updateAudio;
 
     this.starfield = this.add.tileSprite(width / 2, height / 2, width - navWidth * 2, height, 'starfield');
 
-    this.scoreText = this.add.text(width - navWidth + 16, 16, 'Score: 0', {
-      fontSize: '14px',
+    this.scoreText = this.add.text(width - navWidth + 5, 40, 'Score: 0', {
+      fontSize: '20px',
       fill: '#FFFFFF',
     });
+
+    this.nicknameText = this.add.text(width - navWidth + 5, 16, nickname, {
+      fontSize: '20px',
+      fill: '#FFFFFF',
+    });
+
+    this.leaderboard = new Leaderboard(this, width - navWidth + 5, 120, 'Leaderboard\n\nLoading...');
+    this.leaderboard.getScores();
 
     this.anims.create({
       key: 'explosion',
@@ -30,12 +43,23 @@ export default class MainScene extends Phaser.Scene {
     this.sfx = {
       explosion: this.sound.add('explosionSound'),
       laser: this.sound.add('laser'),
+      btnPress: this.sound.add('buttonPressSound'),
+      // backgroundMusic: this.sound.add('music'),
     };
+
+    const soundImage = this.sys.game.globals.state.soundOn ? 'soundOff' : 'soundOn';
+    this.soundButton = this.add.image(width - navWidth - 20, 30, soundImage).setInteractive();
+
+    this.soundButton.on('pointerdown', () => {
+      this.sfx.btnPress.play();
+      this.sys.game.globals.state.soundOn = !this.sys.game.globals.state.soundOn;
+      this.updateAudio();
+    });
 
     this.player = new Player(this, width * 0.5, height - 100, 'player');
     this.lifes = this.add.group();
     for (let i = 0; i < this.player.lifes; i += 1) {
-      this.lifes.add(this.add.image(30 * i + 20, 30, 'player'));
+      this.lifes.add(this.add.image(30 * i + 30, 30, 'player'));
     }
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -84,8 +108,30 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
       if (!player.getData('isDead') && !enemy.getData('isDead')) {
-        player.hit(this.lifes);
-        enemy.explode(true);
+        if (player.hit(this.lifes, this.leaderboard, nickname) === 'dead') {
+          this.gameOver = new Text(this, width / 2, height / 2 - 100, 'GAME OVER!', 'red', '76px');
+          this.gameOverText = new Text(
+            this,
+            width / 2,
+            height / 2 + 100,
+            `Killed by ${enemy.getData('type')}`,
+            'red',
+            '40px'
+          );
+
+          this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
+          this.restartButton.scaleX = 1;
+          this.centerButton(this.restartButton, 0);
+
+          this.restartButtonText = this.add.text(0, 0, 'Restart', { fontSize: '32px', fill: '#fff' });
+          this.centerButtonText(this.restartButtonText, this.restartButton);
+          enemy.explode(true);
+
+          this.restartButton.on('pointerdown', () => {
+            this.sfx.btnPress.play();
+            this.scene.restart();
+          });
+        }
       }
     });
 
@@ -99,8 +145,43 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.enemyLasers, (player, laser) => {
       if (!player.getData('isDead') && !laser.getData('isDead')) {
-        player.hit(this.lifes);
+        if (player.hit(this.lifes, this.leaderboard, nickname) === 'dead') {
+          this.gameOver = new Text(this, width / 2, height / 2 - 100, 'GAME OVER!', 'red', '76px');
+          this.gameOverText = new Text(
+            this,
+            width / 2,
+            height / 2 + 100,
+            `Killed by ${laser.getData('type')}`,
+            'red',
+            '40px'
+          );
+
+          this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
+          this.restartButton.scaleX = 1;
+          this.centerButton(this.restartButton, 0);
+
+          this.restartButtonText = this.add.text(0, 0, 'Restart', { fontSize: '32px', fill: '#fff' });
+          this.centerButtonText(this.restartButtonText, this.restartButton);
+
+          this.restartButton.on('pointerdown', () => {
+            this.sfx.btnPress.play();
+            this.scene.restart();
+          });
+        }
+
         laser.destroy();
+      }
+    });
+
+    this.input.on('pointerover', (event, gameObjects) => {
+      if (gameObjects[0].type === 'Sprite') {
+        gameObjects[0].setTexture('buttonHover');
+      }
+    });
+
+    this.input.on('pointerout', (event, gameObjects) => {
+      if (gameObjects[0].type === 'Sprite') {
+        gameObjects[0].setTexture('button');
       }
     });
   }

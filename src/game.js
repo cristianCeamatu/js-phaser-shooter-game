@@ -5,12 +5,14 @@ import Phaser from 'phaser';
 
 import './assets/style.scss';
 
+import Form from './components/form';
 import BootScene from './scenes/bootScene';
 import PreloadScene from './scenes/preloadScene';
 import MainMenuScene from './scenes/mainMenuScene';
 import MainScene from './scenes/mainScene';
 
 import State from './state';
+import listeners from './utils/listeners';
 
 const DEFAULT_WIDTH = 1000;
 const DEFAULT_HEIGHT = 800;
@@ -38,6 +40,19 @@ const config = {
 };
 
 window.addEventListener('load', () => {
-  const game = new Phaser.Game(config);
-  game.globals = { state };
+  document.querySelector('#form-container').appendChild(Form());
+  listeners.init();
+
+  document.querySelector('#form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.querySelector('#form-container').innerHTML = '';
+
+    const nickname = e.target.elements.nickname.value;
+    const game = new Phaser.Game(config);
+    state.nickname = nickname;
+    game.globals = { state };
+  });
+
+  // const game = new Phaser.Game(config);
+  // game.globals = { state };
 });

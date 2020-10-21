@@ -10,7 +10,7 @@ export default class Player extends Entity {
     this.setData('isDead', false);
     this.setData('respawnProtected', false);
     this.setData('score', 0);
-    this.lifes = 3;
+    this.lifes = 4;
 
     this.setData('isShooting', false);
     this.setData('timerShootDelay', 10);
@@ -38,16 +38,21 @@ export default class Player extends Entity {
     scoreText.setText(`Score: ${this.getData('score')}`);
   }
 
-  hit(lifesDom) {
+  hit(lifesDom, leaderboard, user) {
     if (!this.getData('respawnProtected')) {
       if (this.lifes === 0) {
         this.explode(false);
-      } else {
-        this.lifes -= 1;
-        this.respawn();
-        lifesDom.getChildren()[lifesDom.getChildren().length - 1].destroy();
+        if (this.getData('score') > 0) {
+          leaderboard.submitScore(this.getData('score'), user).then(() => leaderboard.getScores());
+        }
+        return 'dead';
       }
+
+      this.lifes -= 1;
+      this.respawn();
+      lifesDom.getChildren()[lifesDom.getChildren().length - 1].destroy();
     }
+    return true;
   }
 
   respawn() {
@@ -87,13 +92,12 @@ export default class Player extends Entity {
 
     if (this.getData('isShooting')) {
       if (this.getData('timerShootTick') < this.getData('timerShootDelay')) {
-        this.setData('timerShootTick', this.getData('timerShootTick') + 1); // every game update, increase timerShootTick by one until we reach the value of timerShootDelay
+        this.setData('timerShootTick', this.getData('timerShootTick') + 1);
       } else {
-        // when the "manual timer" is triggered:
         const laser = new PlayerLaser(this.scene, this.x, this.y);
         this.scene.playerLasers.add(laser);
 
-        this.scene.sfx.laser.play(); // play the laser sound effect
+        this.scene.sfx.laser.play();
         this.setData('timerShootTick', 0);
       }
     }
