@@ -12,8 +12,8 @@ import MainScene from './scenes/mainScene';
 
 import State from './state';
 
-const DEFAULT_WIDTH = 800;
-const DEFAULT_HEIGHT = 600;
+const DEFAULT_WIDTH = 1000;
+const DEFAULT_HEIGHT = 800;
 
 const state = new State();
 

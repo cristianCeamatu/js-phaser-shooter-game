@@ -11,6 +11,7 @@ export default class CarrierShip extends Entity {
     };
     this.state = this.states.MOVE_DOWN;
     this.setScale(0.25);
+    this.setData('value', 50);
   }
 
   update() {

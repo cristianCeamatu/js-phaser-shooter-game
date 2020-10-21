@@ -10,8 +10,15 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.starfield = this.add.tileSprite(0, 0, 800, 600, 'starfield');
-    this.starfield.setScale(2);
+    const { navWidth } = this.sys.game.globals.state;
+    const { height, width } = this.game.config;
+
+    this.starfield = this.add.tileSprite(width / 2, height / 2, width - navWidth * 2, height, 'starfield');
+
+    this.scoreText = this.add.text(width - navWidth + 16, 16, 'Score: 0', {
+      fontSize: '14px',
+      fill: '#FFFFFF',
+    });
 
     this.anims.create({
       key: 'explosion',
@@ -25,9 +32,12 @@ export default class MainScene extends Phaser.Scene {
       laser: this.sound.add('laser'),
     };
 
-    this.player = new Player(this, this.game.config.width * 0.5, this.game.config.height - 100, 'player');
+    this.player = new Player(this, width * 0.5, height - 100, 'player');
+    this.lifes = this.add.group();
+    for (let i = 0; i < this.player.lifes; i += 1) {
+      this.lifes.add(this.add.image(30 * i + 20, 30, 'player'));
+    }
 
-    //  And some controls to play the game with
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -41,13 +51,13 @@ export default class MainScene extends Phaser.Scene {
         let enemy = null;
 
         if (Phaser.Math.Between(0, 10) >= 3) {
-          enemy = new GunShip(this, Phaser.Math.Between(0, this.game.config.width), 0);
+          enemy = new GunShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
         } else if (Phaser.Math.Between(0, 10) >= 5) {
           if (this.getEnemiesByType('ChaserShip').length < 5) {
-            enemy = new ChaserShip(this, Phaser.Math.Between(0, this.game.config.width), 0);
+            enemy = new ChaserShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
           }
         } else {
-          enemy = new CarrierShip(this, Phaser.Math.Between(0, this.game.config.width), 0);
+          enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
         }
 
         if (enemy !== null) {
@@ -58,14 +68,15 @@ export default class MainScene extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
-    console.log(this.spawn);
 
     this.physics.add.collider(this.playerLasers, this.enemies, (playerLaser, enemy) => {
       if (enemy) {
         if (enemy.onDestroy !== undefined) {
           enemy.onDestroy();
         }
-
+        if (!enemy.getData('isDead')) {
+          this.player.updateScore(enemy.getData('value'), this.scoreText);
+        }
         enemy.explode(true);
         playerLaser.destroy();
       }
@@ -73,13 +84,14 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
       if (!player.getData('isDead') && !enemy.getData('isDead')) {
-        player.explode(false);
+        player.hit(this.lifes);
         enemy.explode(true);
       }
     });
 
     this.physics.add.overlap(this.playerLasers, this.enemyLasers, (playerLaser, enemyLaser) => {
       if (!playerLaser.getData('isDead') && !enemyLaser.getData('isDead')) {
+        this.player.updateScore(enemyLaser.getData('value'), this.scoreText);
         playerLaser.destroy();
         enemyLaser.destroy();
       }
@@ -87,14 +99,14 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.enemyLasers, (player, laser) => {
       if (!player.getData('isDead') && !laser.getData('isDead')) {
-        player.explode(false);
+        player.hit(this.lifes);
         laser.destroy();
       }
     });
   }
 
   update() {
-    this.starfield.tilePositionY += 0.1;
+    this.starfield.tilePositionY += 0.4;
 
     if (!this.player.getData('isDead')) {
       this.player.update();
@@ -106,9 +118,9 @@ export default class MainScene extends Phaser.Scene {
       }
 
       if (this.cursors.left.isDown) {
-        this.player.moveLeft();
+        if (this.player.x > this.sys.game.globals.state.navWidth + 10) this.player.moveLeft();
       } else if (this.cursors.right.isDown) {
-        this.player.moveRight();
+        if (this.player.x < this.game.config.width - this.sys.game.globals.state.navWidth) this.player.moveRight();
       }
 
       if (this.keySpace.isDown) {

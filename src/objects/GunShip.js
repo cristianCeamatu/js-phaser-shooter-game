@@ -8,6 +8,7 @@ export default class GunShip extends Entity {
     super(scene, x, y, 'enemyGreen', 'GunShip');
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.setScale(0.25);
+    this.setData('value', 10);
 
     this.shootTimer = this.scene.time.addEvent({
       delay: 1000,

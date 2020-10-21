@@ -8,6 +8,9 @@ export default class Player extends Entity {
     super(scene, x, y, key, 'Player');
     this.setData('speed', 200);
     this.setData('isDead', false);
+    this.setData('respawnProtected', false);
+    this.setData('score', 0);
+    this.lifes = 3;
 
     this.setData('isShooting', false);
     this.setData('timerShootDelay', 10);
@@ -28,6 +31,53 @@ export default class Player extends Entity {
 
   moveRight() {
     this.body.velocity.x = this.getData('speed');
+  }
+
+  updateScore(value, scoreText) {
+    this.setData('score', this.getData('score') + value);
+    scoreText.setText(`Score: ${this.getData('score')}`);
+  }
+
+  hit(lifesDom) {
+    if (!this.getData('respawnProtected')) {
+      if (this.lifes === 0) {
+        this.explode(false);
+      } else {
+        this.lifes -= 1;
+        this.respawn();
+        lifesDom.getChildren()[lifesDom.getChildren().length - 1].destroy();
+      }
+    }
+  }
+
+  respawn() {
+    if (!this.getData('isDead')) {
+      this.setData('respawnProtected', true);
+      this.setTexture('explosion');
+      this.play('explosion');
+
+      this.scene.sfx.explosion.play();
+
+      if (this.shootTimer !== undefined) {
+        if (this.shootTimer) {
+          this.shootTimer.remove(false);
+        }
+      }
+
+      this.setAngle(0);
+      this.body.setVelocity(0, 0);
+
+      this.on(
+        'animationcomplete',
+        async () => {
+          await this.setTexture('player');
+          this.setPosition(this.scene.game.config.width * 0.5, this.scene.game.config.height - 100);
+        },
+        this
+      );
+
+      setTimeout(() => this.setData('respawnProtected', false), 3000);
+    }
   }
 
   update() {
