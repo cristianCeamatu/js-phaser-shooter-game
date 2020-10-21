@@ -12,14 +12,15 @@ export default class CarrierShip extends Entity {
     this.state = this.states.MOVE_DOWN;
     this.setScale(0.25);
     this.setData('value', 50);
+    this.hp = 3;
   }
 
   update() {
     if (
-      !this.getData('isDead')
-      && this.scene.player
-      && !this.scene.player.getData('isDead')
-      && !this.scene.player.getData('respawnProtected')
+      !this.getData('isDead') &&
+      this.scene.player &&
+      !this.scene.player.getData('isDead') &&
+      !this.scene.player.getData('respawnProtected')
     ) {
       if (Phaser.Math.Distance.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) < 320) {
         this.state = this.states.CHASE;
@@ -41,5 +42,15 @@ export default class CarrierShip extends Entity {
         }
       }
     }
+  }
+
+  hitDead() {
+    console.log(this.hp);
+    if (this.hp === 0) {
+      this.explode(true);
+      return true;
+    }
+    this.hp -= 1;
+    return false;
   }
 }

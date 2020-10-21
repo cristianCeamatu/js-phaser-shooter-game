@@ -9,6 +9,7 @@ export default class GunShip extends Entity {
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.setScale(0.25);
     this.setData('value', 10);
+    this.hp = 2;
 
     this.shootTimer = this.scene.time.addEvent({
       delay: 1000,
@@ -28,5 +29,15 @@ export default class GunShip extends Entity {
         this.shootTimer.remove(false);
       }
     }
+  }
+
+  hitDead() {
+    console.log(this.hp);
+    if (this.hp === 0) {
+      this.explode(true);
+      return true;
+    }
+    this.hp -= 1;
+    return false;
   }
 }
