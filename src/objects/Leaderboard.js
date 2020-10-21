@@ -5,13 +5,12 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
   constructor(scene, x, y, text) {
     super(scene, x, y, text, { color: 'white', fontSize: '18px' });
     scene.add.existing(this);
+    this.uri = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/mKHmBxpV0Vks3xMiBZdr/scores';
   }
 
   async getScores() {
     try {
-      this.results = await axios(
-        'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/mKHmBxpV0Vks3xMiBZdr/scores'
-      );
+      this.results = await axios(this.uri);
       this.scores = this.results.data.result;
       let display = 'Leaderboard\n';
 
@@ -28,7 +27,7 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
   async submitScore(score, user = 'unnamed') {
     const data = { user, score };
     try {
-      this.result = await fetch(`https://cors-anywhere.herokuapp.com/${process.env.LEADERBORD_SCORES_URI}`, {
+      this.result = await fetch(`https://cors-anywhere.herokuapp.com/${this.uri}`, {
         method: 'post',
         cord: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
