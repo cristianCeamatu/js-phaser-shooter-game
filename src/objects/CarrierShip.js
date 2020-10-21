@@ -1,10 +1,10 @@
+import Phaser from 'phaser';
 import Entity from './entity';
 
 export default class CarrierShip extends Entity {
   constructor(scene, x, y) {
     super(scene, x, y, 'enemyBlue', 'CarrierShip');
     this.body.velocity.y = Phaser.Math.Between(50, 100);
-    // this.play('sprEnemy2')
     this.states = {
       MOVE_DOWN: 'MOVE_DOWN',
       CHASE: 'CHASE',
@@ -15,7 +15,12 @@ export default class CarrierShip extends Entity {
   }
 
   update() {
-    if (!this.getData('isDead') && this.scene.player && !this.scene.player.getData('isDead')) {
+    if (
+      !this.getData('isDead')
+      && this.scene.player
+      && !this.scene.player.getData('isDead')
+      && !this.scene.player.getData('respawnProtected')
+    ) {
       if (Phaser.Math.Distance.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) < 320) {
         this.state = this.states.CHASE;
       }

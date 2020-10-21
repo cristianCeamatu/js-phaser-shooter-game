@@ -78,7 +78,7 @@ export default class Player extends Entity {
           await this.setTexture('player');
           this.setPosition(this.scene.game.config.width * 0.5, this.scene.game.config.height - 100);
         },
-        this
+        this,
       );
 
       setTimeout(() => this.setData('respawnProtected', false), 3000);

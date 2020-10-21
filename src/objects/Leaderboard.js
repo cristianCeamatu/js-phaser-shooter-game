@@ -8,6 +8,7 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
   }
 
   async getScores() {
+    console.log(process.env.LEADERBORD_SCORES_URI);
     try {
       this.results = await axios(process.env.LEADERBORD_SCORES_URI);
       this.scores = this.results.data.result;
@@ -19,6 +20,7 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
       });
       this.setText(display);
     } catch (error) {
+      console.log(error);
       this.results = false;
     }
   }

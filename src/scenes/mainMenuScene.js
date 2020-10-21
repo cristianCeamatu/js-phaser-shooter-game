@@ -28,7 +28,7 @@ export default class MainMenuScene extends Phaser.Scene {
       {
         fontSize: '34px',
         fill: '#FFFFFF',
-      }
+      },
     );
     this.welcomeText.setOrigin(0.5, 0.5);
 
@@ -82,8 +82,8 @@ export default class MainMenuScene extends Phaser.Scene {
         this.cameras.main.width / 2,
         this.cameras.main.height / 2 - offset * 100,
         this.cameras.main.width,
-        this.cameras.main.height
-      )
+        this.cameras.main.height,
+      ),
     );
   }
 

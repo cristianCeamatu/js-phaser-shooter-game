@@ -116,14 +116,16 @@ export default class MainScene extends Phaser.Scene {
             height / 2 + 100,
             `Killed by ${enemy.getData('type')}`,
             'red',
-            '40px'
+            '40px',
           );
 
           this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
           this.restartButton.scaleX = 1;
+          this.restartButton.setDepth(1);
           this.centerButton(this.restartButton, 0);
 
           this.restartButtonText = this.add.text(0, 0, 'Restart', { fontSize: '32px', fill: '#fff' });
+          this.restartButtonText.setDepth(1);
           this.centerButtonText(this.restartButtonText, this.restartButton);
           enemy.explode(true);
 
@@ -153,14 +155,16 @@ export default class MainScene extends Phaser.Scene {
             height / 2 + 100,
             `Killed by ${laser.getData('type')}`,
             'red',
-            '40px'
+            '40px',
           );
 
           this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
           this.restartButton.scaleX = 1;
+          this.restartButton.setDepth(1);
           this.centerButton(this.restartButton, 0);
 
           this.restartButtonText = this.add.text(0, 0, 'Restart', { fontSize: '32px', fill: '#fff' });
+          this.restartButtonText.setDepth(1);
           this.centerButtonText(this.restartButtonText, this.restartButton);
 
           this.restartButton.on('pointerdown', () => {
@@ -218,10 +222,10 @@ export default class MainScene extends Phaser.Scene {
       enemy.update();
 
       if (
-        enemy.x < -enemy.displayWidth ||
-        enemy.x > this.game.config.width + enemy.displayWidth ||
-        enemy.y < -enemy.displayHeight * 4 ||
-        enemy.y > this.game.config.height + enemy.displayHeight
+        enemy.x < -enemy.displayWidth
+        || enemy.x > this.game.config.width + enemy.displayWidth
+        || enemy.y < -enemy.displayHeight * 4
+        || enemy.y > this.game.config.height + enemy.displayHeight
       ) {
         if (enemy) {
           if (enemy.onDestroy !== undefined) {
@@ -238,10 +242,10 @@ export default class MainScene extends Phaser.Scene {
       laser.update();
 
       if (
-        laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();
@@ -254,10 +258,10 @@ export default class MainScene extends Phaser.Scene {
       laser.update();
 
       if (
-        laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();
