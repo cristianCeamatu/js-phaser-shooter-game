@@ -211,7 +211,7 @@ export default class Level {
   }
 
   level4() {
-    this.currentLevel = 5;
+    this.currentLevel = 4;
     return this.scene.time.addEvent({
       delay: 900,
       paused: true,
@@ -318,6 +318,7 @@ export default class Level {
     this.currentLevel = 6;
     return this.scene.time.addEvent({
       delay: 1500,
+      paused: true,
       callback: () => {
         let enemy = null;
 
@@ -387,14 +388,16 @@ export default class Level {
         this.scene.levelChangeTitle.setText('');
         this.scene.levelChangeSubtitle.setText('');
       }, 4000);
-    } else if (score > 6000 && this.currentLevel !== 6) {
-      this.level.remove();
-      this.level = this.boss();
-      this.changeLevelText('Boss mode', this.levelTexts[this.currentLevel], this.currentLevel);
-      setTimeout(() => {
-        this.level.paused = false;
-      }, 5000);
-    } else if (score > 5500 && this.currentLevel !== 5) {
+    } else if (score > 3000 && this.currentLevel !== 6) {
+      if (this.currentLevel === 5) {
+        this.level.remove();
+        this.level = this.boss();
+        this.changeLevelText('Boss mode', this.levelTexts[this.currentLevel], this.currentLevel);
+        setTimeout(() => {
+          this.level.paused = false;
+        }, 5000);
+      }
+    } else if (score > 2500 && this.currentLevel !== 5) {
       if (this.currentLevel === 4) {
         this.level.remove();
         this.level = this.level5();
@@ -403,7 +406,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 4500 && this.currentLevel !== 4) {
+    } else if (score > 2000 && this.currentLevel !== 4) {
       if (this.currentLevel === 3) {
         this.level.remove();
         this.level = this.level4();
@@ -412,7 +415,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 3500 && this.currentLevel !== 3) {
+    } else if (score > 1500 && this.currentLevel !== 3) {
       if (this.currentLevel === 2) {
         this.level.remove();
         this.level = this.level3();
@@ -421,7 +424,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 2000 && this.currentLevel !== 2) {
+    } else if (score > 1000 && this.currentLevel !== 2) {
       if (this.currentLevel === 1) {
         this.level.remove();
         this.level = this.level2();
@@ -430,7 +433,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 1000 && this.currentLevel !== 1) {
+    } else if (score > 500 && this.currentLevel !== 1) {
       if (this.currentLevel === 0) {
         this.level.remove();
         this.level = this.level1();
