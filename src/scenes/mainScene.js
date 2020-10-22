@@ -106,7 +106,7 @@ export default class MainScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
       if (!player.getData('isDead') && !enemy.getData('isDead')) {
         if (player.hit(this.lifes, this.leaderboard, nickname) === 'dead') {
-          r = new Text(this, width / 2, height / 2 - 100, 'GAME OVER!', 'red', '76px');
+          this.gameOver = new Text(this, width / 2, height / 2 - 100, 'GAME OVER!', 'red', '76px');
           this.gameOverText = new Text(
             this,
             width / 2,

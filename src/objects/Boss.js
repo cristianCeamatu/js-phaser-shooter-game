@@ -32,16 +32,16 @@ export default class Boss extends Entity {
 
   update() {
     if (!this.getData('isDead')) {
-      if (this.body.x < this.startingX + 50) {
+      if (this.body.x < this.startingX + 20) {
         this.body.velocity.x += 1;
       } else {
-        this.body.velocity.x -= 30;
+        this.body.velocity.x -= 80;
       }
 
-      if (this.body.y < this.startingX + 50) {
+      if (this.body.y < this.startingX + 20) {
         this.body.velocity.y += 1;
       } else {
-        this.body.velocity.y -= 30;
+        this.body.velocity.y -= 80;
       }
     }
   }

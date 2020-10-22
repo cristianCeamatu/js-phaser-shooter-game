@@ -11,6 +11,7 @@ export default class Level {
   constructor(scene, score = 0, { navWidth, width }) {
     this.currentLevel = false;
     this.level = false;
+    this.scene = scene;
     this.navWidth = navWidth;
     this.width = width;
     this.score = score;
@@ -120,7 +121,7 @@ export default class Level {
   level2() {
     this.currentLevel = 2;
     return this.scene.time.addEvent({
-      delay: 1100,
+      delay: 1000,
       paused: true,
       callback: () => {
         let enemy = null;
@@ -166,7 +167,7 @@ export default class Level {
   level3() {
     this.currentLevel = 3;
     return this.scene.time.addEvent({
-      delay: 1000,
+      delay: 900,
       paused: true,
       callback: () => {
         let enemy = null;
@@ -261,30 +262,12 @@ export default class Level {
     this.currentLevel = 5;
     return this.scene.time.addEvent({
       delay: 600,
-      paused: false,
+      paused: true,
       callback: () => {
         let enemy = null;
 
         if (Phaser.Math.Between(0, 10) >= 3) {
-          enemy = new GunShip(
-            this.scene,
-            Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
-            0,
-            15,
-            { minVelocity: 100, maxVelocity: 250 }
-          );
-        } else if (Phaser.Math.Between(0, 10) >= 3) {
-          if (this.getEnemiesByType('AirShip').length < 7) {
-            enemy = new AirShip(
-              this.scene,
-              Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
-              0,
-              5,
-              { minVelocity: 200, maxVelocity: 400 }
-            );
-          }
-        } else if (Phaser.Math.Between(0, 10) >= 4) {
-          if (this.getEnemiesByType('FighterShip').length < 5) {
+          if (this.getEnemiesByType('FighterShip').length < 7) {
             enemy = new FighterShip(
               this.scene,
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
@@ -293,6 +276,24 @@ export default class Level {
               { minVelocity: 100, maxVelocity: 250 }
             );
           }
+        } else if (Phaser.Math.Between(0, 10) >= 3) {
+          if (this.getEnemiesByType('AirShip').length < 5) {
+            enemy = new AirShip(
+              this.scene,
+              Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
+              0,
+              5,
+              { minVelocity: 200, maxVelocity: 400 }
+            );
+          }
+        } else if (Phaser.Math.Between(0, 10) >= 3) {
+          enemy = new GunShip(
+            this.scene,
+            Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
+            0,
+            15,
+            { minVelocity: 100, maxVelocity: 250 }
+          );
         } else {
           enemy = new CarrierShip(
             this.scene,
@@ -314,13 +315,13 @@ export default class Level {
   }
 
   boss() {
-    this.currentLevel = 7;
+    this.currentLevel = 6;
     return this.scene.time.addEvent({
       delay: 1500,
       callback: () => {
         let enemy = null;
 
-        if (this.scene.enemies.getChildren().length === 0) {
+        if (this.getEnemiesByType('Boss').length === 0) {
           enemy = new Boss(
             this.scene,
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
@@ -331,38 +332,25 @@ export default class Level {
               maxVelocity: 100,
             }
           );
+        } else if (Phaser.Math.Between(0, 10) >= 4) {
+          enemy = new FighterShip(
+            this.scene,
+            Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
+            0,
+            30,
+            { minVelocity: 50, maxVelocity: 100 }
+          ).setScale(0.5);
+        } else if (Phaser.Math.Between(0, 10) >= 4) {
+          enemy = new CarrierShip(
+            this.scene,
+            Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
+            0,
+            3,
+            { minVelocity: 50, maxVelocity: 100 }
+          ).setScale(1.2);
         }
-        // if (Phaser.Math.Between(0, 10) >= 3) {
-        //   enemy = new GunShip(
-        //     this.scene,
-        //     Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
-        //     0,
-        //     2,
-        //     { minVelocity: 50, maxVelocity: 100 }
-        //   );
-        // } else if (Phaser.Math.Between(0, 10) >= 5) {
-        //   if (this.getEnemiesByType('ChaserShip').length < 5) {
-        //     enemy = new ChaserShip(
-        //       this.scene,
-        //       Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
-        //       0,
-        //       5,
-        //       { minVelocity: 50, maxVelocity: 100 }
-        //     );
-        //   }
-        // } else {
-        //   enemy = new CarrierShip(
-        //     this.scene,
-        //     Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
-        //     0,
-        //     3,
-        //     { minVelocity: 50, maxVelocity: 100 }
-        //   );
-        // }
-        console.log(this.scene.enemies.getChildren().length);
 
         if (enemy !== null) {
-          // enemy.setScale(Phaser.Math.Between(4, 8) * 0.1);
           this.scene.enemies.add(enemy);
         }
       },
@@ -399,16 +387,14 @@ export default class Level {
         this.scene.levelChangeTitle.setText('');
         this.scene.levelChangeSubtitle.setText('');
       }, 4000);
-    } else if (score > 1000 && this.currentLevel !== 6) {
-      if (this.currentLevel === 5) {
-        this.level.remove();
-        this.level = this.boss();
-        this.changeLevelText('Boss mode', this.levelTexts[this.currentLevel], this.currentLevel);
-        setTimeout(() => {
-          this.level.paused = false;
-        }, 5000);
-      }
-    } else if (score > 800 && this.currentLevel !== 5) {
+    } else if (score > 6000 && this.currentLevel !== 6) {
+      this.level.remove();
+      this.level = this.boss();
+      this.changeLevelText('Boss mode', this.levelTexts[this.currentLevel], this.currentLevel);
+      setTimeout(() => {
+        this.level.paused = false;
+      }, 5000);
+    } else if (score > 5500 && this.currentLevel !== 5) {
       if (this.currentLevel === 4) {
         this.level.remove();
         this.level = this.level5();
@@ -417,7 +403,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 600 && this.currentLevel !== 4) {
+    } else if (score > 4500 && this.currentLevel !== 4) {
       if (this.currentLevel === 3) {
         this.level.remove();
         this.level = this.level4();
@@ -426,7 +412,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 400 && this.currentLevel !== 3) {
+    } else if (score > 3500 && this.currentLevel !== 3) {
       if (this.currentLevel === 2) {
         this.level.remove();
         this.level = this.level3();
@@ -435,7 +421,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 200 && this.currentLevel !== 2) {
+    } else if (score > 2000 && this.currentLevel !== 2) {
       if (this.currentLevel === 1) {
         this.level.remove();
         this.level = this.level2();
@@ -444,7 +430,7 @@ export default class Level {
           this.level.paused = false;
         }, 5000);
       }
-    } else if (score > 100 && this.currentLevel !== 1) {
+    } else if (score > 1000 && this.currentLevel !== 1) {
       if (this.currentLevel === 0) {
         this.level.remove();
         this.level = this.level1();

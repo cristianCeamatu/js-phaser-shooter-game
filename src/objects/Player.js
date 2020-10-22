@@ -46,6 +46,7 @@ export default class Player extends Entity {
       if (this.lifes === 0) {
         this.explode(false);
         if (this.getData('score') > 0) {
+          console.log('dead');
           leaderboard.submitScore(this.getData('score'), user).then(() => leaderboard.getScores());
         }
         return 'dead';
@@ -96,7 +97,7 @@ export default class Player extends Entity {
         if (this.weaponLevel < 5) {
           this.weaponLevel += 1;
           if (this.weaponLevel === 5) {
-            this.scene.weaponText.setText(`Laser lvl max`);
+            this.scene.weaponText.setText('Laser lvl max');
           } else {
             this.scene.weaponText.setText(`Laser lvl ${this.weaponLevel}`);
           }
