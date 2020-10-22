@@ -52,6 +52,8 @@ export default class Player extends Entity {
       }
 
       this.lifes -= 1;
+      if (this.weaponLevel >= 1) this.weaponLevel -= 1;
+      this.scene.weaponText.setText(`Laser lvl ${this.weaponLevel}`);
       this.respawn();
       lifesDom.getChildren()[lifesDom.getChildren().length - 1].destroy();
     }
@@ -91,7 +93,15 @@ export default class Player extends Entity {
   collect(item) {
     switch (item) {
       case 'gun':
-        if (this.weaponLevel < 5) this.weaponLevel += 1;
+        if (this.weaponLevel < 5) {
+          this.weaponLevel += 1;
+          if (this.weaponLevel === 5) {
+            this.scene.weaponText.setText(`Laser lvl max`);
+          } else {
+            this.scene.weaponText.setText(`Laser lvl ${this.weaponLevel}`);
+          }
+        }
+
         break;
       case 'player':
         if (this.lifes < 5) {
@@ -101,7 +111,7 @@ export default class Player extends Entity {
         break;
       case 'shield':
         this.setData('shield', true);
-        setTimeout(() => this.setData('shield', false), 4000);
+        window.setTimeout(() => this.setData('shield', false), 4000);
         break;
       default:
         break;

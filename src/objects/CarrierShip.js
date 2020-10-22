@@ -4,7 +4,7 @@ import Entity from './entity';
 import Item from './Item';
 
 export default class CarrierShip extends Entity {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, hp) {
     super(scene, x, y, 'enemyBlue', 'CarrierShip');
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.states = {
@@ -14,7 +14,7 @@ export default class CarrierShip extends Entity {
     this.state = this.states.MOVE_DOWN;
     this.setScale(0.25);
     this.setData('value', 50);
-    this.hp = 3;
+    this.hp = hp;
     this.items = ['shield', 'gun', 'player'];
   }
 

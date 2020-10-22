@@ -4,12 +4,12 @@ import Entity from './entity';
 import EnemyLaser from './EnemyLaser';
 
 export default class GunShip extends Entity {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, hp) {
     super(scene, x, y, 'enemyGreen', 'GunShip');
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.setScale(0.25);
     this.setData('value', 10);
-    this.hp = 2;
+    this.hp = hp;
 
     this.shootTimer = this.scene.time.addEvent({
       delay: 1000,

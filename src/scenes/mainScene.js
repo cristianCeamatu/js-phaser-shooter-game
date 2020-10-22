@@ -26,6 +26,11 @@ export default class MainScene extends Phaser.Scene {
       fill: '#FFFFFF',
     });
 
+    this.weaponText = this.add.text(12, 60, 'Laser lvl 0', {
+      fontSize: '20px',
+      fill: '#FFFFFF',
+    });
+
     this.nicknameText = this.add.text(width - navWidth + 5, 16, nickname, {
       fontSize: '20px',
       fill: '#FFFFFF',
@@ -51,7 +56,7 @@ export default class MainScene extends Phaser.Scene {
     };
 
     const soundImage = this.sys.game.globals.state.soundOn ? 'soundOff' : 'soundOn';
-    this.soundButton = this.add.image(width - navWidth - 20, 30, soundImage).setInteractive();
+    this.soundButton = this.add.image(width - navWidth - 30, 30, soundImage).setInteractive();
 
     this.soundButton.on('pointerdown', () => {
       this.sfx.btnPress.play();
@@ -80,17 +85,17 @@ export default class MainScene extends Phaser.Scene {
       callback: () => {
         let enemy = null;
 
-        if (Phaser.Math.Between(0, 10) >= 3) {
-          enemy = new GunShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
-        } else if (Phaser.Math.Between(0, 10) >= 5) {
-          if (this.getEnemiesByType('ChaserShip').length < 5) {
-            enemy = new ChaserShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
-          }
-        } else {
-          enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
-        }
+        // if (Phaser.Math.Between(0, 10) >= 3) {
+        //   enemy = new GunShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 2);
+        // } else if (Phaser.Math.Between(0, 10) >= 5) {
+        //   if (this.getEnemiesByType('ChaserShip').length < 5) {
+        //     enemy = new ChaserShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 5);
+        //   }
+        // } else {
+        //   enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 3);
+        // }
 
-        // enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
+        enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 0);
 
         if (enemy !== null) {
           enemy.setScale(Phaser.Math.Between(4, 8) * 0.1);
