@@ -15,15 +15,15 @@ export default class CarrierShip extends Entity {
     this.setScale(0.25);
     this.setData('value', 50);
     this.hp = 3;
-    this.items = ['player', 'shield', 'gun'];
+    this.items = ['shield', 'gun', 'player'];
   }
 
   update() {
     if (
-      !this.getData('isDead')
-      && this.scene.player
-      && !this.scene.player.getData('isDead')
-      && !this.scene.player.getData('shield')
+      !this.getData('isDead') &&
+      this.scene.player &&
+      !this.scene.player.getData('isDead') &&
+      !this.scene.player.getData('shield')
     ) {
       if (Phaser.Math.Distance.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) < 320) {
         this.state = this.states.CHASE;
@@ -58,7 +58,8 @@ export default class CarrierShip extends Entity {
   }
 
   dropItem() {
-    const itemType = this.items[Phaser.Math.Between(0, 2)];
+    const itemType =
+      this.scene.player.lifes >= 5 ? this.items[Phaser.Math.Between(0, 1)] : this.items[Phaser.Math.Between(0, 2)];
     const item = new Item(this.scene, this.x, this.y, itemType);
     this.scene.items.add(item);
     this.scene.sfx.playerJoinedSound.play();
