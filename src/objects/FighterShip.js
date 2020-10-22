@@ -3,13 +3,13 @@ import Phaser from 'phaser';
 import Entity from './entity';
 import EnemyLaser from './EnemyLaser';
 
-export default class GunShip extends Entity {
+export default class FighterShip extends Entity {
   constructor(scene, x, y, hp, { minVelocity, maxVelocity }) {
-    super(scene, x, y, 'enemyGreen', 'GunShip');
+    super(scene, x, y, 'enemyFighter', 'FighterShip');
     this.body.velocity.y = Phaser.Math.Between(minVelocity, maxVelocity);
-    this.setScale(0.25);
-    this.setData('value', 10);
+    this.setData('value', 100);
     this.hp = hp;
+    this.startingX = x;
 
     this.shootTimer = this.scene.time.addEvent({
       delay: 1000,
@@ -27,6 +27,16 @@ export default class GunShip extends Entity {
     if (this.shootTimer !== undefined) {
       if (this.shootTimer) {
         this.shootTimer.remove(false);
+      }
+    }
+  }
+
+  update() {
+    if (!this.getData('isDead')) {
+      if (this.body.x < this.startingX + 50) {
+        this.body.velocity.x += 2;
+      } else {
+        this.body.velocity.x -= 8;
       }
     }
   }

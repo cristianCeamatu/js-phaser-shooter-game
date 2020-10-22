@@ -2,9 +2,6 @@
 import Phaser from 'phaser';
 import Level from '../utils/Level';
 import Player from '../objects/Player';
-import GunShip from '../objects/GunShip';
-import CarrierShip from '../objects/CarrierShip';
-import ChaserShip from '../objects/ChaserShip';
 import Leaderboard from '../objects/Leaderboard';
 import Text from '../objects/Text';
 
@@ -93,14 +90,14 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.playerLasers, this.enemies, (playerLaser, enemy) => {
       if (enemy) {
-        if (enemy.onDestroy !== undefined) {
-          enemy.onDestroy();
-        }
         if (!this.sfx.metalHit1.isPlaying) {
           this.sfx.metalHit1.play();
         }
         if (!enemy.getData('isDead') && enemy.hitDead()) {
           this.player.updateScore(enemy.getData('value'), this.scoreText);
+          if (enemy.onDestroy !== undefined) {
+            enemy.onDestroy();
+          }
         }
         playerLaser.destroy();
       }
@@ -109,7 +106,7 @@ export default class MainScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
       if (!player.getData('isDead') && !enemy.getData('isDead')) {
         if (player.hit(this.lifes, this.leaderboard, nickname) === 'dead') {
-          this.gameOver = new Text(this, width / 2, height / 2 - 100, 'GAME OVER!', 'red', '76px');
+          r = new Text(this, width / 2, height / 2 - 100, 'GAME OVER!', 'red', '76px');
           this.gameOverText = new Text(
             this,
             width / 2,
@@ -239,8 +236,8 @@ export default class MainScene extends Phaser.Scene {
       enemy.update();
 
       if (
-        enemy.x < -enemy.displayWidth ||
-        enemy.x > this.game.config.width + enemy.displayWidth ||
+        enemy.x < -enemy.displayWidth + this.sys.game.globals.state.navWidth + 30 ||
+        enemy.x > this.game.config.width + enemy.displayWidth - this.sys.game.globals.state.navWidth - 30 ||
         enemy.y < -enemy.displayHeight * 4 ||
         enemy.y > this.game.config.height + enemy.displayHeight
       ) {
