@@ -20,10 +20,10 @@ export default class CarrierShip extends Entity {
 
   update() {
     if (
-      !this.getData('isDead') &&
-      this.scene.player &&
-      !this.scene.player.getData('isDead') &&
-      !this.scene.player.getData('shield')
+      !this.getData('isDead')
+      && this.scene.player
+      && !this.scene.player.getData('isDead')
+      && !this.scene.player.getData('shield')
     ) {
       if (Phaser.Math.Distance.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) < 320) {
         this.state = this.states.CHASE;

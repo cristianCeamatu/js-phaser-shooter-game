@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import Phaser from 'phaser';
 
 import Entity from './entity';
@@ -62,6 +63,8 @@ export default class Player extends Entity {
       this.setTexture('explosion');
       this.play('explosion');
 
+      this.setData('shield', true);
+
       this.scene.sfx.explosion.play();
 
       if (this.shootTimer !== undefined) {
@@ -77,8 +80,6 @@ export default class Player extends Entity {
         'animationcomplete',
         () => {
           this.setTexture('player');
-          this.setPosition(this.scene.game.config.width * 0.5, this.scene.game.config.height - 100);
-          this.setData('shield', true);
         },
         this
       );
