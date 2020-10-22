@@ -8,9 +8,11 @@ export default class Player extends Entity {
     super(scene, x, y, key, 'Player');
     this.setData('speed', 200);
     this.setData('isDead', false);
-    this.setData('respawnProtected', false);
+    this.setData('shield', false);
     this.setData('score', 0);
     this.lifes = 4;
+    this.weaponLevel = 0;
+    this.setScale(1.25);
 
     this.setData('isShooting', false);
     this.setData('timerShootDelay', 10);
@@ -39,7 +41,7 @@ export default class Player extends Entity {
   }
 
   hit(lifesDom, leaderboard, user) {
-    if (!this.getData('respawnProtected')) {
+    if (!this.getData('shield')) {
       if (this.lifes === 0) {
         this.explode(false);
         if (this.getData('score') > 0) {
@@ -57,7 +59,6 @@ export default class Player extends Entity {
 
   respawn() {
     if (!this.getData('isDead')) {
-      this.setData('respawnProtected', true);
       this.setTexture('explosion');
       this.play('explosion');
 
@@ -74,14 +75,71 @@ export default class Player extends Entity {
 
       this.on(
         'animationcomplete',
-        async () => {
-          await this.setTexture('player');
+        () => {
+          this.setTexture('player');
           this.setPosition(this.scene.game.config.width * 0.5, this.scene.game.config.height - 100);
+          this.setData('shield', true);
         },
-        this,
+        this
       );
 
-      setTimeout(() => this.setData('respawnProtected', false), 3000);
+      setTimeout(() => this.setData('shield', false), 3000);
+    }
+  }
+
+  collect(item) {
+    switch (item) {
+      case 'gun':
+        if (this.weaponLevel < 5) this.weaponLevel += 1;
+        break;
+      case 'player':
+        if (this.lifes < 5) {
+          this.lifes += 1;
+          this.scene.lifes.add(this.scene.add.image(30 * this.lifes - 1, 30, 'player'));
+        }
+        break;
+      case 'shield':
+        this.setData('shield', true);
+        setTimeout(() => this.setData('shield', false), 4000);
+        break;
+      default:
+        break;
+    }
+  }
+
+  laser(level) {
+    switch (level) {
+      case 1:
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.5));
+        break;
+      case 2:
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 8, this.y));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 8, this.y));
+        break;
+      case 3:
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -30).setAngle(-4));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 30).setAngle(4));
+        break;
+      case 4:
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 11, this.y, -38).setAngle(-8));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -30).setAngle(-4));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.2));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 30).setAngle(4));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 11, this.y, 38).setAngle(8));
+        break;
+      case 5:
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -15).setRotation(-45));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y).setRotation(-30));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -30).setAngle(-4));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.2, 1.6));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 30).setAngle(4));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y).setRotation(30));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 15).setRotation(45));
+        break;
+      default:
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y));
+        break;
     }
   }
 
@@ -94,9 +152,7 @@ export default class Player extends Entity {
       if (this.getData('timerShootTick') < this.getData('timerShootDelay')) {
         this.setData('timerShootTick', this.getData('timerShootTick') + 1);
       } else {
-        const laser = new PlayerLaser(this.scene, this.x, this.y);
-        this.scene.playerLasers.add(laser);
-
+        this.laser(this.weaponLevel);
         this.scene.sfx.laser.play();
         this.setData('timerShootTick', 0);
       }

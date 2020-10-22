@@ -32,7 +32,6 @@ export default class GunShip extends Entity {
   }
 
   hitDead() {
-    console.log(this.hp);
     if (this.hp === 0) {
       this.explode(true);
       return true;

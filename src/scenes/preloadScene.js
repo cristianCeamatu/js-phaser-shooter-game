@@ -5,10 +5,11 @@ import enemyBlue from '../assets/img/enemy-blue.png';
 import enemyGreen from '../assets/img/enemy-green.png';
 import enemyRed from '../assets/img/enemy-red.png';
 import enemyLaser from '../assets/img/rocketPlayer.png';
-
+import shield from '../assets/img/shield.png';
 import bullet from '../assets/img/bullet.png';
 import explosion from '../assets/img/explosion.png';
-import star from '../assets/img/star.png';
+import gun from '../assets/img/gun.png';
+
 import button from '../assets/img/button.png';
 import buttonPressed from '../assets/img/buttonPressed.png';
 import buttonHover from '../assets/img/buttonHover.png';
@@ -16,7 +17,9 @@ import soundOff from '../assets/img/soundOff.png';
 import soundOn from '../assets/img/soundOn.png';
 
 import collectStarSound from '../assets/audio/collectStar.wav';
+import metalHit1 from '../assets/audio/metalHit1.wav';
 import explosionSound from '../assets/audio/explosion.wav';
+import drop from '../assets/audio/coin_drop.wav';
 import laserM4a from '../assets/audio/laser.m4a';
 import laserOgg from '../assets/audio/laser.ogg';
 import musicWav from '../assets/audio/music.wav';
@@ -103,7 +106,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('enemyBlue', enemyBlue);
     this.load.image('enemyRed', enemyRed);
     this.load.image('enemyLaser', enemyLaser);
-    this.load.image('star', star);
+    this.load.image('shield', shield);
+    this.load.image('gun', gun);
     this.load.spritesheet('explosion', explosion, { frameWidth: 128, frameHeight: 128 });
 
     this.load.audio('collectStarSound', collectStarSound);
@@ -112,6 +116,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio('music', [musicMp3, musicOgg, musicWav]);
     this.load.audio('playerJoinedSound', playerJoinedSound);
     this.load.audio('buttonPressSound', buttonPressSound);
+    this.load.audio('metalHit1', metalHit1);
+    this.load.audio('drop', drop);
   }
 
   create() {
@@ -121,7 +127,7 @@ export default class PreloadScene extends Phaser.Scene {
       fill: '#FFFFFF',
     });
     this.logoText.setOrigin(1, 0.5);
-    this.scene.start('MainMenu');
-    // this.scene.start('Main');
+    // this.scene.start('MainMenu');
+    this.scene.start('Main');
   }
 }

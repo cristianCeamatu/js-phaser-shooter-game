@@ -40,19 +40,19 @@ const config = {
 };
 
 window.addEventListener('load', () => {
-  document.querySelector('#form-container').appendChild(Form());
-  listeners.init();
+  // document.querySelector('#form-container').appendChild(Form());
+  // listeners.init();
 
-  document.querySelector('#form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    document.querySelector('#form-container').innerHTML = '';
+  // document.querySelector('#form').addEventListener('submit', (e) => {
+  //   e.preventDefault();
+  //   document.querySelector('#form-container').innerHTML = '';
 
-    const nickname = e.target.elements.nickname.value;
-    const game = new Phaser.Game(config);
-    state.nickname = nickname;
-    game.globals = { state };
-  });
+  //   const nickname = e.target.elements.nickname.value;
+  //   const game = new Phaser.Game(config);
+  //   state.nickname = nickname;
+  //   game.globals = { state };
+  // });
 
-  // const game = new Phaser.Game(config);
-  // game.globals = { state };
+  const game = new Phaser.Game(config);
+  game.globals = { state };
 });

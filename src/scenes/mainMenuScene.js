@@ -87,6 +87,7 @@ export default class MainMenuScene extends Phaser.Scene {
     );
   }
 
+  /* eslint-disable class-methods-use-this */
   centerButtonText(gameText, gameButton) {
     Phaser.Display.Align.In.Center(gameText, gameButton);
   }

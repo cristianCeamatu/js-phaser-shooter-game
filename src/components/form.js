@@ -1,6 +1,6 @@
 export default () => {
   const element = document.createElement('form');
-  element.className = 'text-center shadow-lg p-5 my-5 w-50 mx-auto d-block h3 bg-dark text-white rounded';
+  element.className = 'text-center shadow-lg p-2 p-md-5 my-5 mx-auto d-block h3 bg-dark text-white rounded';
   element.setAttribute('action', '/');
   element.id = 'form';
 

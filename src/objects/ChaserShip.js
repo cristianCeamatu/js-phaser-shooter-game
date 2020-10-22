@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import Entity from './entity';
 
 export default class ChaserShip extends Entity {
@@ -10,7 +11,6 @@ export default class ChaserShip extends Entity {
   }
 
   hitDead() {
-    console.log(this.hp);
     if (this.hp === 0) {
       this.explode(true);
       return true;

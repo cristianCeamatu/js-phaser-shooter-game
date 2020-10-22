@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 import Phaser from 'phaser';
 import Entity from './entity';
+import Item from './Item';
 
 export default class CarrierShip extends Entity {
   constructor(scene, x, y) {
@@ -13,6 +15,7 @@ export default class CarrierShip extends Entity {
     this.setScale(0.25);
     this.setData('value', 50);
     this.hp = 3;
+    this.items = ['player', 'shield', 'gun'];
   }
 
   update() {
@@ -20,7 +23,7 @@ export default class CarrierShip extends Entity {
       !this.getData('isDead') &&
       this.scene.player &&
       !this.scene.player.getData('isDead') &&
-      !this.scene.player.getData('respawnProtected')
+      !this.scene.player.getData('shield')
     ) {
       if (Phaser.Math.Distance.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) < 320) {
         this.state = this.states.CHASE;
@@ -45,12 +48,19 @@ export default class CarrierShip extends Entity {
   }
 
   hitDead() {
-    console.log(this.hp);
     if (this.hp === 0) {
       this.explode(true);
+      this.dropItem();
       return true;
     }
     this.hp -= 1;
     return false;
+  }
+
+  dropItem() {
+    const itemType = this.items[Phaser.Math.Between(0, 2)];
+    const item = new Item(this.scene, this.x, this.y, itemType);
+    this.scene.items.add(item);
+    this.scene.sfx.playerJoinedSound.play();
   }
 }

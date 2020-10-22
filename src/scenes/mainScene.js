@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import Phaser from 'phaser';
 import Player from '../objects/Player';
 import GunShip from '../objects/GunShip';
@@ -44,7 +45,9 @@ export default class MainScene extends Phaser.Scene {
       explosion: this.sound.add('explosionSound'),
       laser: this.sound.add('laser'),
       btnPress: this.sound.add('buttonPressSound'),
-      // backgroundMusic: this.sound.add('music'),
+      metalHit1: this.sound.add('metalHit1'),
+      playerJoinedSound: this.sound.add('playerJoinedSound'),
+      collectStarSound: this.sound.add('collectStarSound'),
     };
 
     const soundImage = this.sys.game.globals.state.soundOn ? 'soundOff' : 'soundOn';
@@ -58,31 +61,36 @@ export default class MainScene extends Phaser.Scene {
 
     this.player = new Player(this, width * 0.5, height - 100, 'player');
     this.lifes = this.add.group();
+    this.items = this.add.group();
+    this.enemies = this.add.group();
+    this.enemyLasers = this.add.group();
+    this.playerLasers = this.add.group();
+
     for (let i = 0; i < this.player.lifes; i += 1) {
       this.lifes.add(this.add.image(30 * i + 30, 30, 'player'));
     }
 
+    this.shield = this.add.image(this.player.x, this.player.y, 'shield').setVisible(false);
+
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-    this.enemies = this.add.group();
-    this.enemyLasers = this.add.group();
-    this.playerLasers = this.add.group();
 
     this.spawn = this.time.addEvent({
       delay: 1500,
       callback: () => {
         let enemy = null;
 
-        if (Phaser.Math.Between(0, 10) >= 3) {
-          enemy = new GunShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
-        } else if (Phaser.Math.Between(0, 10) >= 5) {
-          if (this.getEnemiesByType('ChaserShip').length < 5) {
-            enemy = new ChaserShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
-          }
-        } else {
-          enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
-        }
+        // if (Phaser.Math.Between(0, 10) >= 3) {
+        //   enemy = new GunShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
+        // } else if (Phaser.Math.Between(0, 10) >= 5) {
+        //   if (this.getEnemiesByType('ChaserShip').length < 5) {
+        //     enemy = new ChaserShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
+        //   }
+        // } else {
+        //   enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
+        // }
+
+        enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0);
 
         if (enemy !== null) {
           enemy.setScale(Phaser.Math.Between(4, 8) * 0.1);
@@ -97,6 +105,9 @@ export default class MainScene extends Phaser.Scene {
       if (enemy) {
         if (enemy.onDestroy !== undefined) {
           enemy.onDestroy();
+        }
+        if (!this.sfx.metalHit1.isPlaying) {
+          this.sfx.metalHit1.play();
         }
         if (!enemy.getData('isDead') && enemy.hitDead()) {
           this.player.updateScore(enemy.getData('value'), this.scoreText);
@@ -141,6 +152,13 @@ export default class MainScene extends Phaser.Scene {
         this.player.updateScore(enemyLaser.getData('value'), this.scoreText);
         playerLaser.destroy();
         enemyLaser.destroy();
+      }
+    });
+
+    this.physics.add.overlap(this.player, this.items, (player, item) => {
+      if (!player.getData('isDead') && !item.getData('isDead')) {
+        player.collect(item.getData('type'));
+        item.destroy();
       }
     });
 
@@ -215,6 +233,15 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
+    if (this.player) {
+      if (this.player.getData('shield') && !this.player.getData('isDead')) {
+        this.shield.setVisible(true);
+        this.shield.setPosition(this.player.x, this.player.y);
+      } else {
+        this.shield.setVisible(false);
+      }
+    }
+
     for (let i = 0; i < this.enemies.getChildren().length; i += 1) {
       const enemy = this.enemies.getChildren()[i];
 
@@ -232,6 +259,22 @@ export default class MainScene extends Phaser.Scene {
           }
 
           enemy.destroy();
+        }
+      }
+    }
+
+    for (let i = 0; i < this.items.getChildren().length; i += 1) {
+      const item = this.items.getChildren()[i];
+      item.update();
+
+      if (
+        item.x < -item.displayWidth ||
+        item.x > this.game.config.width + item.displayWidth ||
+        item.y < -item.displayHeight * 4 ||
+        item.y > this.game.config.height + item.displayHeight
+      ) {
+        if (item) {
+          item.destroy();
         }
       }
     }
