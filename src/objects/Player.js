@@ -122,6 +122,7 @@ export default class Player extends Entity {
     switch (level) {
       case 1:
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.5));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y));
         break;
       case 2:
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 8, this.y));

@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import Phaser from 'phaser';
+import Level from '../utils/Level';
 import Player from '../objects/Player';
 import GunShip from '../objects/GunShip';
 import CarrierShip from '../objects/CarrierShip';
@@ -14,7 +15,7 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     const { navWidth, nickname } = this.sys.game.globals.state;
-    const { height, width } = this.game.config;
+    const { height, width } = this.cameras.main;
     this.centerButton = this.scene.get('MainMenu').centerButton;
     this.centerButtonText = this.scene.get('MainMenu').centerButtonText;
     this.updateAudio = this.scene.get('MainMenu').updateAudio;
@@ -26,7 +27,15 @@ export default class MainScene extends Phaser.Scene {
       fill: '#FFFFFF',
     });
 
-    this.weaponText = this.add.text(12, 60, 'Laser lvl 0', {
+    this.levelText = this.add.text(12, 60, 'Game lvl 0', {
+      fontSize: '20px',
+      fill: '#FFFFFF',
+    });
+
+    this.levelChangeTitle = new Text(this, width / 2, height / 2 - 100, 'Level 0', 'red', '76px');
+    this.levelChangeSubtitle = new Text(this, width / 2, height / 2 + 100, 'Warm up', 'red', '40px');
+
+    this.weaponText = this.add.text(12, 85, 'Laser lvl 0', {
       fontSize: '20px',
       fill: '#FFFFFF',
     });
@@ -80,31 +89,7 @@ export default class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    this.spawn = this.time.addEvent({
-      delay: 1500,
-      callback: () => {
-        let enemy = null;
-
-        // if (Phaser.Math.Between(0, 10) >= 3) {
-        //   enemy = new GunShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 2);
-        // } else if (Phaser.Math.Between(0, 10) >= 5) {
-        //   if (this.getEnemiesByType('ChaserShip').length < 5) {
-        //     enemy = new ChaserShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 5);
-        //   }
-        // } else {
-        //   enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 3);
-        // }
-
-        enemy = new CarrierShip(this, Phaser.Math.Between(navWidth + 20, width - navWidth - 20), 0, 0);
-
-        if (enemy !== null) {
-          enemy.setScale(Phaser.Math.Between(4, 8) * 0.1);
-          this.enemies.add(enemy);
-        }
-      },
-      callbackScope: this,
-      loop: true,
-    });
+    this.level = new Level(this, this.player.score, { navWidth, width });
 
     this.physics.add.overlap(this.playerLasers, this.enemies, (playerLaser, enemy) => {
       if (enemy) {
@@ -213,6 +198,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
+    this.level.update(this.player.getData('score'));
     this.starfield.tilePositionY += 0.4;
 
     if (!this.player.getData('isDead')) {
@@ -319,16 +305,5 @@ export default class MainScene extends Phaser.Scene {
     const bank = this.player.body.velocity.x / 350;
     this.player.scaleX = 1 - Math.abs(bank) / 2;
     this.player.angle = bank * 10;
-  }
-
-  getEnemiesByType(type) {
-    const arr = [];
-    for (let i = 0; i < this.enemies.getChildren().length; i += 1) {
-      const enemy = this.enemies.getChildren()[i];
-      if (enemy.getData('type') === type) {
-        arr.push(enemy);
-      }
-    }
-    return arr;
   }
 }

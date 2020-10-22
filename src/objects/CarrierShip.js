@@ -4,9 +4,9 @@ import Entity from './entity';
 import Item from './Item';
 
 export default class CarrierShip extends Entity {
-  constructor(scene, x, y, hp) {
+  constructor(scene, x, y, hp, { minVelocity, maxVelocity }) {
     super(scene, x, y, 'enemyBlue', 'CarrierShip');
-    this.body.velocity.y = Phaser.Math.Between(50, 100);
+    this.body.velocity.y = Phaser.Math.Between(minVelocity, maxVelocity);
     this.states = {
       MOVE_DOWN: 'MOVE_DOWN',
       CHASE: 'CHASE',
