@@ -1,0 +1,27 @@
+Morning
+Add shield sprite on respawn
+Add hit effect on hitting enemies (with sound)
+Add droppings from ChaserShips (shield, life, weapon)
+Add weapon improvement when picking up the weapon drop
+Dying 2 times sometimes
+Decrease weapon level on death
+Show weapon level on the left
+
+Afternoon
+Add levels template
+Update level text in the sidenav
+Show new level text
+
+Extra (if time or next sprint)
+Mobile responsive
+Follow the other tutorial
+Add boss
+Add other enemies
+add points count after explosion of enemy
+Add slider on the left with details:
+Add slider
+Last sprint
+Morning
+Jest testing
+Refactor
+Readme

@@ -10,6 +10,9 @@
 > <br>
 > The game is tested using Jest for unit testing
 
+## Game design 
+You can check the updated GDD in [power point](./gdd/Official GDD.pptx) and [pdf](./gdd/Official_GDD.pdf) versions, and some demos of the sprints used: [sprint1](./gdd/sprint1.txt), [sprint2](./gdd/sprint2.txt) and [sprint3](./gdd/sprint3.txt)
+
 ## App functionality
 
 - Users are required to choose a nickname when they visit the website
@@ -33,10 +36,6 @@
 
 ![image](.github/app-screenshot.png)
 ![image](.github/app-screenshot1.png)
-
-## Small video demo of the app
-
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/YJxk7YG2RNY)
 
 ## Built With
 

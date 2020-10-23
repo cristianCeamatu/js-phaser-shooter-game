@@ -1,0 +1,23 @@
+Morning
+Add infinite mode after bossed killed
+Add boss hp
+Add cors url in fron of the request
+Linter errors
+Refactor
+Add score submited text with loading functionality
+Add sound when pick up item
+
+Afternoon
+Add testing
+GDD after and before update
+
+Recheck project requirements
+Add readme details
+
+
+Extra (if time or next sprint)
+Afternoon
+Add mobile responsive
+Add background and shadow
+Refactor: Preload Scene (Loader Object, Logo Object), MainMenuScene(Menu object)
+Add animation on nickname screen and redesign
