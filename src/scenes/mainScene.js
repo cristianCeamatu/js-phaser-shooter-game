@@ -197,10 +197,10 @@ export default class MainScene extends Phaser.Scene {
       radius: 80,
       base: this.add.circle(0, 0, 100, 0x888888),
       thumb: this.add.circle(0, 100, 50, 0xcccccc),
-      // dir: '8dir',
+      dir: '8dir',
       // forceMin: 16,
-      // fixed: true,
-      // enable: true
+      fixed: true,
+      enable: true,
     });
     // this.joyStick = this.plugins.get('rexVirtualJoystick');
 
