@@ -11,7 +11,7 @@ export default class Player extends Entity {
     this.setData('isDead', false);
     this.setData('shield', false);
     this.setData('score', 0);
-    this.lifes = 4;
+    this.lifes = 0;
     this.weaponLevel = 0;
     this.setScale(1.25);
 
@@ -46,7 +46,6 @@ export default class Player extends Entity {
       if (this.lifes === 0) {
         this.explode(false);
         if (this.getData('score') > 0) {
-          console.log('dead');
           leaderboard.submitScore(this.getData('score'), user).then(() => leaderboard.getScores());
         }
         return 'dead';
@@ -84,7 +83,7 @@ export default class Player extends Entity {
         () => {
           this.setTexture('player');
         },
-        this
+        this,
       );
 
       setTimeout(() => this.setData('shield', false), 3000);

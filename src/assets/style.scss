@@ -1,20 +1,20 @@
 body {
-  background-color:black;
+  background-color: black;
 
   button[disabled] {
     cursor: not-allowed;
     opacity: 0.7;
   }
-  
+
   button[disabled=false] {
     cursor: pointer;
     opacity: 1;
   }
-  
+
   canvas {
     border: 1px solid white;
   }
-  
+
   #form {
     max-width: 600px;
     width: 100%;
@@ -23,5 +23,4 @@ body {
       height: 60px;
     }
   }
-
 }

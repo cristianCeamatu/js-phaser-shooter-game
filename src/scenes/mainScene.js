@@ -16,27 +16,23 @@ export default class MainScene extends Phaser.Scene {
     this.centerButton = this.scene.get('MainMenu').centerButton;
     this.centerButtonText = this.scene.get('MainMenu').centerButtonText;
     this.updateAudio = this.scene.get('MainMenu').updateAudio;
-
     this.starfield = this.add.tileSprite(width / 2, height / 2, width - navWidth * 2, height, 'starfield');
-
     this.scoreText = this.add.text(width - navWidth + 5, 40, 'Score: 0', {
       fontSize: '20px',
       fill: '#FFFFFF',
     });
-
     this.levelText = this.add.text(12, 60, 'Game lvl 0', {
       fontSize: '20px',
       fill: '#FFFFFF',
     });
-
     this.levelChangeTitle = new Text(this, width / 2, height / 2 - 100, 'Level 0', 'red', '76px');
     this.levelChangeSubtitle = new Text(this, width / 2, height / 2 + 100, 'Warm up', 'red', '40px');
+    this.scoreSubmittedText = new Text(this, width / 2, height / 2 + 150, '', '#ffffff', '40px');
 
     this.weaponText = this.add.text(12, 85, 'Laser lvl 0', {
       fontSize: '20px',
       fill: '#FFFFFF',
     });
-
     this.nicknameText = this.add.text(width - navWidth + 5, 16, nickname, {
       fontSize: '20px',
       fill: '#FFFFFF',
@@ -76,12 +72,11 @@ export default class MainScene extends Phaser.Scene {
     this.enemies = this.add.group();
     this.enemyLasers = this.add.group();
     this.playerLasers = this.add.group();
+    this.shield = this.add.image(this.player.x, this.player.y, 'shield').setVisible(false);
 
     for (let i = 0; i < this.player.lifes; i += 1) {
       this.lifes.add(this.add.image(30 * i + 30, 30, 'player'));
     }
-
-    this.shield = this.add.image(this.player.x, this.player.y, 'shield').setVisible(false);
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -113,7 +108,7 @@ export default class MainScene extends Phaser.Scene {
             height / 2 + 100,
             `Killed by ${enemy.getData('type')}`,
             'red',
-            '40px'
+            '40px',
           );
 
           this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
@@ -145,6 +140,7 @@ export default class MainScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.items, (player, item) => {
       if (!player.getData('isDead') && !item.getData('isDead')) {
         player.collect(item.getData('type'));
+        this.sfx.collectStarSound.play();
         item.destroy();
       }
     });
@@ -159,7 +155,7 @@ export default class MainScene extends Phaser.Scene {
             height / 2 + 100,
             `Killed by ${laser.getData('type')}`,
             'red',
-            '40px'
+            '40px',
           );
 
           this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
@@ -236,10 +232,10 @@ export default class MainScene extends Phaser.Scene {
       enemy.update();
 
       if (
-        enemy.x < -enemy.displayWidth + this.sys.game.globals.state.navWidth + 30 ||
-        enemy.x > this.game.config.width + enemy.displayWidth - this.sys.game.globals.state.navWidth - 30 ||
-        enemy.y < -enemy.displayHeight * 4 ||
-        enemy.y > this.game.config.height + enemy.displayHeight
+        enemy.x < -enemy.displayWidth + this.sys.game.globals.state.navWidth + 30
+        || enemy.x > this.game.config.width + enemy.displayWidth - this.sys.game.globals.state.navWidth - 30
+        || enemy.y < -enemy.displayHeight * 4
+        || enemy.y > this.game.config.height + enemy.displayHeight
       ) {
         if (enemy) {
           if (enemy.onDestroy !== undefined) {
@@ -256,10 +252,10 @@ export default class MainScene extends Phaser.Scene {
       item.update();
 
       if (
-        item.x < -item.displayWidth ||
-        item.x > this.game.config.width + item.displayWidth ||
-        item.y < -item.displayHeight * 4 ||
-        item.y > this.game.config.height + item.displayHeight
+        item.x < -item.displayWidth
+        || item.x > this.game.config.width + item.displayWidth
+        || item.y < -item.displayHeight * 4
+        || item.y > this.game.config.height + item.displayHeight
       ) {
         if (item) {
           item.destroy();
@@ -272,10 +268,10 @@ export default class MainScene extends Phaser.Scene {
       laser.update();
 
       if (
-        laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();
@@ -288,10 +284,10 @@ export default class MainScene extends Phaser.Scene {
       laser.update();
 
       if (
-        laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();
@@ -299,6 +295,7 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
+    // Makes the lean effect when moving left or right
     const bank = this.player.body.velocity.x / 350;
     this.player.scaleX = 1 - Math.abs(bank) / 2;
     this.player.angle = bank * 10;

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+
 import Entity from './entity';
 
 export default class ChaserShip extends Entity {

@@ -2,7 +2,7 @@ export default class State {
   constructor() {
     this.sound = true;
     this.navsWidths = 180;
-    this.name = 'first';
+    this.name = 'unnamed';
   }
 
   set soundOn(value) {

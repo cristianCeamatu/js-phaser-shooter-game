@@ -5,6 +5,7 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
   constructor(scene, x, y, text) {
     super(scene, x, y, text, { color: 'white', fontSize: '18px' });
     scene.add.existing(this);
+    this.scene = scene;
     this.uri = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/mKHmBxpV0Vks3xMiBZdr/scores';
   }
 
@@ -26,16 +27,19 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
 
   async submitScore(score, user = 'unnamed') {
     const data = { user, score };
+    this.scene.scoreSubmittedText.setText('Submitting your score...');
     try {
       this.result = await fetch(`https://cors-anywhere.herokuapp.com/${this.uri}`, {
         method: 'post',
-        cord: 'no-cors',
+        cors: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       this.result = await this.result.json();
+      if (this.result) this.scene.scoreSubmittedText.setText('Score submitted');
     } catch (error) {
       this.results = false;
+      this.scene.scoreSubmittedText.setText('Server error!');
     }
   }
 }

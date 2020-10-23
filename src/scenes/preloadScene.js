@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+
 import starfield from '../assets/img/starfield.png';
 import player from '../assets/img/player.png';
 import enemyBlue from '../assets/img/enemy-blue.png';
@@ -134,6 +135,5 @@ export default class PreloadScene extends Phaser.Scene {
     });
     this.logoText.setOrigin(1, 0.5);
     this.scene.start('MainMenu');
-    // this.scene.start('Main');
   }
 }

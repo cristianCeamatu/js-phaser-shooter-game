@@ -18,7 +18,6 @@ const DEFAULT_WIDTH = 1000;
 const DEFAULT_HEIGHT = 800;
 
 const state = new State();
-
 const config = {
   type: Phaser.AUTO,
   backgroundColor: '#000',
@@ -52,7 +51,4 @@ window.addEventListener('load', () => {
     state.nickname = nickname;
     game.globals = { state };
   });
-
-  // const game = new Phaser.Game(config);
-  // game.globals = { state };
 });
