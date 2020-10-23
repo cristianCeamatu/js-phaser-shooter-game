@@ -108,7 +108,7 @@ export default class MainScene extends Phaser.Scene {
             height / 2 + 100,
             `Killed by ${enemy.getData('type')}`,
             'red',
-            '40px',
+            '40px'
           );
 
           this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
@@ -155,7 +155,7 @@ export default class MainScene extends Phaser.Scene {
             height / 2 + 100,
             `Killed by ${laser.getData('type')}`,
             'red',
-            '40px',
+            '40px'
           );
 
           this.restartButton = this.add.sprite(100, 200, 'button').setInteractive();
@@ -232,10 +232,10 @@ export default class MainScene extends Phaser.Scene {
       enemy.update();
 
       if (
-        enemy.x < -enemy.displayWidth + this.sys.game.globals.state.navWidth + 30
-        || enemy.x > this.game.config.width + enemy.displayWidth - this.sys.game.globals.state.navWidth - 30
-        || enemy.y < -enemy.displayHeight * 4
-        || enemy.y > this.game.config.height + enemy.displayHeight
+        enemy.x < -enemy.displayWidth + this.sys.game.globals.state.navWidth + 30 ||
+        enemy.x > this.game.config.width + enemy.displayWidth - this.sys.game.globals.state.navWidth - 30 ||
+        enemy.y < -enemy.displayHeight * 4 ||
+        enemy.y > this.game.config.height + enemy.displayHeight
       ) {
         if (enemy) {
           if (enemy.onDestroy !== undefined) {
@@ -252,10 +252,10 @@ export default class MainScene extends Phaser.Scene {
       item.update();
 
       if (
-        item.x < -item.displayWidth
-        || item.x > this.game.config.width + item.displayWidth
-        || item.y < -item.displayHeight * 4
-        || item.y > this.game.config.height + item.displayHeight
+        item.x < -item.displayWidth ||
+        item.x > this.game.config.width + item.displayWidth ||
+        item.y < -item.displayHeight * 4 ||
+        item.y > this.game.config.height + item.displayHeight
       ) {
         if (item) {
           item.destroy();
@@ -268,10 +268,10 @@ export default class MainScene extends Phaser.Scene {
       laser.update();
 
       if (
-        laser.x < -laser.displayWidth
-        || laser.x > this.game.config.width + laser.displayWidth
-        || laser.y < -laser.displayHeight * 4
-        || laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth ||
+        laser.x > this.game.config.width + laser.displayWidth ||
+        laser.y < -laser.displayHeight * 4 ||
+        laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();
@@ -284,10 +284,10 @@ export default class MainScene extends Phaser.Scene {
       laser.update();
 
       if (
-        laser.x < -laser.displayWidth
-        || laser.x > this.game.config.width + laser.displayWidth
-        || laser.y < -laser.displayHeight * 4
-        || laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth ||
+        laser.x > this.game.config.width + laser.displayWidth ||
+        laser.y < -laser.displayHeight * 4 ||
+        laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();

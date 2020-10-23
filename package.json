@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watchAll --testPathPattern=tests/",
+    "test:watch": "jest --watchAll --testPathPattern=tests/objects/Level.test.js",
     "eslint": "eslint .",
     "stylelint": "stylelint \"**/*.scss\"",
     "fix": "stylelint --fix \"**/*.scss\" && eslint . --fix",
@@ -27,6 +27,7 @@
   "homepage": "https://github.com/cristianCeamatu/template-eslint-stylelint#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
+    "@testing-library/jest-dom": "^5.11.4",
     "babel-eslint": "^10.1.0",
     "css-loader": "^4.3.0",
     "eslint": "^6.8.0",
