@@ -11,7 +11,7 @@
 > The game is tested using Jest for unit testing
 
 ## Game design document
-You can check the updated GDD in [PowerPoint](./gdd/Official_GDD.pptx) and [pdf](./gdd/Official_GDD.pdf) versions, and some demos of the sprints (planning per day) used: [sprint1](./gdd/sprint1.txt), [sprint2](./gdd/sprint2.txt) and [sprint3](./gdd/sprint3.txt)
+You can check the updated GDD in [PowerPoint](./gdd/Official_GDD.pptx) (recommended) and [pdf](./gdd/Official_GDD.pdf) versions, and some demos of the sprints (planning per day) used: [sprint1](./gdd/sprint1.txt), [sprint2](./gdd/sprint2.txt) and [sprint3](./gdd/sprint3.txt)
 
 ## App functionality
 
@@ -77,6 +77,10 @@ Most important, enjoy the app!<br>
 3. Run the tests with the command:
 
    `npm test`
+
+## Future improvements
+- Make the game playable on mobiles
+- Add other worlds/levels/enemies
 
 ## Authors
 

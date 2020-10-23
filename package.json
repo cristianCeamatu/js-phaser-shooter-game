@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watchAll --testPathPattern=tests/objects/Level.test.js",
+    "test:watch": "jest --watchAll --testPathPattern=tests/",
     "eslint": "eslint .",
     "stylelint": "stylelint \"**/*.scss\"",
     "fix": "stylelint --fix \"**/*.scss\" && eslint . --fix",

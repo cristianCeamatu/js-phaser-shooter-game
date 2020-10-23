@@ -83,7 +83,7 @@ export default class Player extends Entity {
         () => {
           this.setTexture('player');
         },
-        this
+        this,
       );
 
       setTimeout(() => this.setData('shield', false), 3000);
