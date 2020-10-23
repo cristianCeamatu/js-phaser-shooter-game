@@ -2,11 +2,17 @@ import Entity from './entity';
 import EnemyLaser from './EnemyLaser';
 
 export default class Boss extends Entity {
-  constructor(scene, x, y, hp, { minVelocity, maxVelocity }) {
+  constructor(scene, x, y, hp) {
     super(scene, x, y, 'boss', 'Boss');
     this.setData('value', 100);
     this.hp = hp;
     this.startingX = x;
+    this.bossText = scene.add
+      .text(scene.cameras.main.width / 2, 20, `Boss hp left ${this.hp}`, {
+        fontSize: '20px',
+        fill: '#FFFFFF',
+      })
+      .setOrigin(0.5);
 
     this.shootTimer = this.scene.time.addEvent({
       delay: 500,
@@ -49,9 +55,11 @@ export default class Boss extends Entity {
   hitDead() {
     if (this.hp === 0) {
       this.explode(true);
+      this.bossText.setText('');
       return true;
     }
     this.hp -= 1;
+    this.bossText.setText(`Boss hp left ${this.hp}`);
     return false;
   }
 }

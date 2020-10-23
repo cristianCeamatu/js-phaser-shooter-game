@@ -10,7 +10,7 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
 
   async getScores() {
     try {
-      this.results = await axios(this.uri);
+      this.results = await axios(`https://cors-anywhere.herokuapp.com/${this.uri}`);
       this.scores = this.results.data.result;
       let display = 'Leaderboard\n';
 

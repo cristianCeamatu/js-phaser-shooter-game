@@ -94,9 +94,9 @@ export default class Player extends Entity {
   collect(item) {
     switch (item) {
       case 'gun':
-        if (this.weaponLevel < 5) {
+        if (this.weaponLevel < 6) {
           this.weaponLevel += 1;
-          if (this.weaponLevel === 5) {
+          if (this.weaponLevel === 6) {
             this.scene.weaponText.setText('Laser lvl max');
           } else {
             this.scene.weaponText.setText(`Laser lvl ${this.weaponLevel}`);
@@ -127,17 +127,19 @@ export default class Player extends Entity {
         break;
       case 2:
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 8, this.y));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.5));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 8, this.y));
         break;
       case 3:
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -30).setAngle(-4));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.5));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 30).setAngle(4));
         break;
       case 4:
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 11, this.y, -38).setAngle(-8));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -30).setAngle(-4));
-        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.2));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.5));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 30).setAngle(4));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 11, this.y, 38).setAngle(8));
         break;
@@ -149,6 +151,17 @@ export default class Player extends Entity {
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 30).setAngle(4));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y).setRotation(30));
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 15).setRotation(45));
+        break;
+      case 6:
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 20, this.y, -50).setAngle(-12));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -15).setRotation(-45));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y).setRotation(-30));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x - 5, this.y, -30).setAngle(-4));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y).setScale(1.2, 1.6));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 30).setAngle(4));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y).setRotation(30));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 5, this.y, 15).setRotation(45));
+        this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x + 20, this.y, +50).setAngle(12));
         break;
       default:
         this.scene.playerLasers.add(new PlayerLaser(this.scene, this.x, this.y));

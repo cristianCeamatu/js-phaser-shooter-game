@@ -9,7 +9,7 @@ export default class AirShip extends Entity {
     this.body.velocity.y = Phaser.Math.Between(minVelocity, maxVelocity);
     this.body.velocity.x = Phaser.Math.Between(-minVelocity, minVelocity);
     this.setScale(0.2);
-    this.setData('value', 100);
+    this.setData('value', 150);
     this.hp = hp;
 
     this.shootTimer = this.scene.time.addEvent({

@@ -7,7 +7,7 @@ export default class FighterShip extends Entity {
   constructor(scene, x, y, hp, { minVelocity, maxVelocity }) {
     super(scene, x, y, 'enemyFighter', 'FighterShip');
     this.body.velocity.y = Phaser.Math.Between(minVelocity, maxVelocity);
-    this.setData('value', 100);
+    this.setData('value', 200);
     this.hp = hp;
     this.startingX = x;
 
