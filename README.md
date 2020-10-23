@@ -10,8 +10,8 @@
 > <br>
 > The game is tested using Jest for unit testing
 
-## Game design 
-You can check the updated GDD in [power point](./gdd/Official GDD.pptx) and [pdf](./gdd/Official_GDD.pdf) versions, and some demos of the sprints used: [sprint1](./gdd/sprint1.txt), [sprint2](./gdd/sprint2.txt) and [sprint3](./gdd/sprint3.txt)
+## Game design document
+You can check the updated GDD in [PowerPoint](./gdd/Official GDD.pptx) and [pdf](./gdd/Official_GDD.pdf) versions, and some demos of the sprints (planning per day) used: [sprint1](./gdd/sprint1.txt), [sprint2](./gdd/sprint2.txt) and [sprint3](./gdd/sprint3.txt)
 
 ## App functionality
 
