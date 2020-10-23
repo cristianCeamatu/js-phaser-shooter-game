@@ -53,6 +53,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "phaser": "^3.24.1",
+    "phaser3-rex-plugins": "^1.1.31",
     "popper.js": "^1.16.1"
   }
 }

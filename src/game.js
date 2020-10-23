@@ -2,6 +2,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Phaser from 'phaser';
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 
 import './assets/style.scss';
 
@@ -36,11 +37,24 @@ const config = {
       gravity: { y: 0 },
     },
   },
+  plugins: {
+    global: [
+      {
+        key: 'rexVirtualJoystick',
+        plugin: VirtualJoystickPlugin,
+        start: true,
+      },
+      // ...
+    ],
+  },
 };
 
 window.addEventListener('load', () => {
   document.querySelector('#form-container').appendChild(Form());
   listeners.init();
+
+  const isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
+  if (isMobile) state.isMobile = true;
 
   document.querySelector('#form').addEventListener('submit', (e) => {
     e.preventDefault();

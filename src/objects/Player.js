@@ -21,6 +21,7 @@ export default class Player extends Entity {
   }
 
   moveUp() {
+    console.log('player move up');
     this.body.velocity.y = -this.getData('speed');
   }
 
@@ -83,7 +84,7 @@ export default class Player extends Entity {
         () => {
           this.setTexture('player');
         },
-        this,
+        this
       );
 
       setTimeout(() => this.setData('shield', false), 3000);
