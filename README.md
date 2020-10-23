@@ -24,8 +24,8 @@
  - Level 5: > 10000 points
  - Level Boss: > 150000 points
  - Level Infinite: unlock after killing the Boss
-- They game has an all time leaderboard, scores are submitted auttomatically and updated at each gameover.
-- The user can see the leaderboard on the right sidenav
+- The game has an all time leaderboard, scores are submitted automatically and updated at each game over.
+- The user can see the leaderboard on the right-side nav.
 
 ## This web app is live, you can check it here: [Live demo](https://js-phaser-shooter-game.herokuapp.com/)
 
@@ -33,6 +33,10 @@
 
 ![image](.github/app-screenshot.png)
 ![image](.github/app-screenshot1.png)
+
+## Small video demo of the app
+
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/YJxk7YG2RNY)
 
 ## Built With
 
