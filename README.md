@@ -3,11 +3,11 @@
 # Micro Shooters - Javascript Phaser 3 Game built in 5 days.
 
 > In this project, we were required to build a turn-based RPG shooter game with the Phaser Javascript library.
-<br>
-> The player will have to kill different types of enemies with AI functionality. He can also pick droppings to increase his weapon level/lifes or to enter in shield mode.
-<br>
-> The game currently has 6 levels and a Boss, after the player defeats the Boss he unlocks infinite mode. The player can reach maximum 5 extra lifes and level 7 weapon.
-<br>
+> <br>
+> The player will have to kill different types of enemies with AI functionality. He can also pick droppings to increase his weapon level/lives or to enter in shield mode.
+> <br>
+> The game currently has 6 levels and a Boss, after the player defeats the Boss he unlocks infinite mode. The player can reach a maximum of 5 extra lives and level 7 laser.
+> <br>
 > The game is tested using Jest for unit testing
 
 ## App functionality
