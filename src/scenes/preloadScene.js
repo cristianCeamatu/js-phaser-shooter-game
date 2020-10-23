@@ -133,7 +133,7 @@ export default class PreloadScene extends Phaser.Scene {
       fill: '#FFFFFF',
     });
     this.logoText.setOrigin(1, 0.5);
-    // this.scene.start('MainMenu');
-    this.scene.start('Main');
+    this.scene.start('MainMenu');
+    // this.scene.start('Main');
   }
 }

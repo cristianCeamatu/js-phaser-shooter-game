@@ -4,7 +4,7 @@ import EnemyLaser from './EnemyLaser';
 export default class Boss extends Entity {
   constructor(scene, x, y, hp) {
     super(scene, x, y, 'boss', 'Boss');
-    this.setData('value', 100);
+    this.setData('value', 1000);
     this.hp = hp;
     this.startingX = x;
     this.bossText = scene.add
