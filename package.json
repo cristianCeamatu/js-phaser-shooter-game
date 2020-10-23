@@ -4,11 +4,12 @@
   "description": "node_modules/",
   "private": true,
   "scripts": {
-    "jest": "jest",
+    "test": "jest",
+    "test:watch": "jest --watchAll --testPathPattern=tests/",
     "eslint": "eslint .",
     "stylelint": "stylelint \"**/*.scss\"",
     "fix": "stylelint --fix \"**/*.scss\" && eslint . --fix",
-    "test": "npm run fix && npm run stylelint && npm run eslint && echo '🎉 All test pass 🎉'",
+    "linters": "npm run fix && npm run stylelint && npm run eslint && echo '🎉 All test pass 🎉'",
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development",
     "dev": "webpack-dev-server --mode=development"
