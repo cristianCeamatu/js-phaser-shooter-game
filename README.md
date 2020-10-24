@@ -2,11 +2,11 @@
 
 # Micro Shooters - Javascript Phaser 3 Game built in 5 days.
 
-> In this project, we were required to build a turn-based RPG shooter game with the Phaser Javascript library.
+> In this project, we were required to build a space shooter game with the Phaser Javascript library.
 > <br>
 > The player will have to kill different types of enemies with AI functionality. He can also pick droppings to increase his weapon level/lives or to enter in shield mode.
 > <br>
-> The game currently has 6 levels and a Boss, after the player defeats the Boss he unlocks infinite mode. The player can reach a maximum of 5 extra lives and level 7 laser.
+> The game currently has 7 levels (from which one is a Boss and the last one has an infinite spawn). The player can reach a maximum of 5 extra lives and level 7 laser.
 > <br>
 > The game is tested using Jest for unit testing
 
@@ -18,8 +18,7 @@ You can check the updated GDD in [PowerPoint](./gdd/Official_GDD.pptx) (recommen
 - Users are required to choose a nickname when they visit the website
 - Users can kill enemies to increase the score and level
 - Current game levels by score:
- - Level 0: 0
- - 1000 points
+ - Level 0: 0 to 1000 points
  - Level 1: > 1000 points
  - Level 2: > 2500 points
  - Level 3: > 5000 points
@@ -30,12 +29,20 @@ You can check the updated GDD in [PowerPoint](./gdd/Official_GDD.pptx) (recommen
 - The game has an all time leaderboard, scores are submitted automatically and updated at each game over.
 - The user can see the leaderboard on the right-side nav.
 
+## Controls
+
+PC: UP, DOWN, LEFT and RIGHT arrow keys for movement and SPACE for shooting.
+MOBILE: Use joystick displayed on the screen for the movement. Shooting is on auto mode.
+Demo photo of the joystick:
+![image](readme-assets/mobile-joystick.png)
+
+
 ## This web app is live, you can check it here: [Live demo](https://js-phaser-shooter-game.herokuapp.com/)
 
 ## Screenshots of the app.
 
-![image](.github/app-screenshot.png)
-![image](.github/app-screenshot1.png)
+![image](readme-assets/app-screenshot.png)
+![image](readme-assets/app-screenshot1.png)
 
 ## Built With
 

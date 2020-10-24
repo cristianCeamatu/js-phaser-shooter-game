@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import Phaser from 'phaser';
 
-import VirtualJoystick from 'phaser3-rex-plugins/plugins/virtualjoystick.js';
+import VirtualJoystick from 'phaser3-rex-plugins/plugins/virtualjoystick';
 import Level from '../utils/Level';
 import Player from '../objects/Player';
 import Leaderboard from '../objects/Leaderboard';
