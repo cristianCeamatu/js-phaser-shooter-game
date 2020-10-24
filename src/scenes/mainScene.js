@@ -204,15 +204,16 @@ export default class MainScene extends Phaser.Scene {
       }
     });
 
-    this.input.on('pointerover', (event, gameObjects) => {
-      if (gameObjects[0].type === 'Sprite') {
-        gameObjects[0].setTexture('buttonHover');
+    this.input.on('pointerdown', (pointer, objectsClicked) => {
+      if (objectsClicked[0].type === 'Arc') {
+        this.player.setData('isShooting', true);
       }
     });
 
-    this.input.on('pointerout', (event, gameObjects) => {
-      if (gameObjects[0].type === 'Sprite') {
-        gameObjects[0].setTexture('button');
+    this.input.on('pointerout', (pointer, objectsClicked) => {
+      if (objectsClicked[0].type === 'Arc') {
+        this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
+        this.player.setData('isShooting', false);
       }
     });
   }
