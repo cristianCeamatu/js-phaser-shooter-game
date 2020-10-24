@@ -88,7 +88,7 @@ export default class MainScene extends Phaser.Scene {
       this.joystick = new VirtualJoystick(this, {
         x: 90,
         y: height - 100,
-        radius: 80,
+        radius: 120,
         base: this.add.circle(0, 0, 80, 0x888888),
         thumb: this.add.circle(0, 80, 50, 0xcccccc),
         // dir: '8dir',
@@ -99,19 +99,17 @@ export default class MainScene extends Phaser.Scene {
 
       this.cursorKeys = this.joystick.createCursorKeys();
       this.joystickSpaceKey = this.add.circle(width - 90, height - 90, 70, 0xb32d2b).setInteractive();
-      console.log(this.joystickSpaceKey);
-      this.joystickSpaceKey.on('pointerdown', () => {
-        this.player.setData('isShooting', true);
+      this.input.on('pointerover', (event, gameObjects) => {
+        if (gameObjects[0].x === 910 && gameObjects[0].y === 710) {
+          this.player.setData('isShooting', true);
+        }
       });
-
-      this.joystickSpaceKey.on(
-        'pointerup',
-        () => {
+      this.input.on('pointerout', (event, gameObjects) => {
+        if (gameObjects[0].x === 910 && gameObjects[0].y === 710) {
           this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
           this.player.setData('isShooting', false);
-        },
-        this.joystickSpaceKey
-      );
+        }
+      });
     }
 
     this.level = new Level(this, this.player.score, { navWidth, width });
