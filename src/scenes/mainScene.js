@@ -13,8 +13,9 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    const { navWidth, nickname, isMobile } = this.sys.game.globals.state;
+    const { navWidth, nickname } = this.sys.game.globals.state;
     const { height, width } = this.cameras.main;
+    this.isMobile = this.sys.game.globals.state.isMobile;
     this.centerButton = this.scene.get('MainMenu').centerButton;
     this.centerButtonText = this.scene.get('MainMenu').centerButtonText;
     this.updateAudio = this.scene.get('MainMenu').updateAudio;
@@ -80,8 +81,38 @@ export default class MainScene extends Phaser.Scene {
       this.lifes.add(this.add.image(30 * i + 30, 30, 'player'));
     }
 
-    this.cursors = this.input.keyboard.createCursorKeys();
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    if (!this.isMobile) {
+      this.cursors = this.input.keyboard.createCursorKeys();
+      this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    } else {
+      this.joystick = new VirtualJoystick(this, {
+        x: 90,
+        y: height - 100,
+        radius: 80,
+        base: this.add.circle(0, 0, 80, 0x888888),
+        thumb: this.add.circle(0, 80, 50, 0xcccccc),
+        // dir: '8dir',
+        forceMin: 16,
+        fixed: true,
+        enable: true,
+      });
+
+      this.cursorKeys = this.joystick.createCursorKeys();
+      this.joystickSpaceKey = this.add.circle(width - 90, height - 90, 70, 0xb32d2b).setInteractive();
+      console.log(this.joystickSpaceKey);
+      this.joystickSpaceKey.on('pointerdown', () => {
+        this.player.setData('isShooting', true);
+      });
+
+      this.joystickSpaceKey.on(
+        'pointerup',
+        () => {
+          this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
+          this.player.setData('isShooting', false);
+        },
+        this.joystickSpaceKey
+      );
+    }
 
     this.level = new Level(this, this.player.score, { navWidth, width });
 
@@ -190,75 +221,13 @@ export default class MainScene extends Phaser.Scene {
         gameObjects[0].setTexture('button');
       }
     });
-
-    this.joyStick = new VirtualJoystick(this, {
-      x: 100,
-      y: height - 100,
-      radius: 80,
-      base: this.add.circle(0, 0, 100, 0x888888),
-      thumb: this.add.circle(0, 100, 50, 0xcccccc),
-      dir: '8dir',
-      // forceMin: 16,
-      fixed: true,
-      enable: true,
-    });
-    // this.joyStick = this.plugins.get('rexVirtualJoystick');
-
-    // this.joyStick.add(this, {
-    //   x: 100,
-    //   y: height - 100,
-    //   radius: 80,
-    //   base: this.add.circle(0, 0, 100, 0x888888),
-    //   thumb: this.add.circle(0, 100, 50, 0xcccccc),
-    // dir: '8dir',
-    // forceMin: 16,
-    // fixed: true,
-    // enable: true
-    // });
-    this.cursorKeys = this.joyStick.createCursorKeys();
-    console.log(this.cursorKeys);
-    // .on('update', this.dumpJoyStickState, this);
-
-    // this.text = this.add.text(10, height - 140);
   }
-
-  // dumpJoyStickState() {
-  //   const cursorKeys = this.joyStick.createCursorKeys();
-  //   let s = 'Key down: ';
-  //   for (let name in cursorKeys) {
-  //     if (cursorKeys[name].isDown) {
-  //       s += name + ' ';
-  //     }
-  //   }
-  //   s += '\n';
-  //   s += 'Force: ' + Math.floor(this.joyStick.force * 100) / 100 + '\n';
-  //   s += 'Angle: ' + Math.floor(this.joyStick.angle * 100) / 100 + '\n';
-  //   this.text.setText(s);
-  // }
 
   update() {
     this.level.update(this.player.getData('score'));
     this.starfield.tilePositionY += 0.4;
 
-    if (!this.player.getData('isDead') && this.cursorKeys) {
-      this.player.update();
-
-      if (this.cursorKeys.up.isDown) {
-        console.log('uppppp');
-        this.player.moveUp();
-      } else if (this.cursorKeys.down.isDown) {
-        console.log('down');
-        this.player.moveDown();
-      }
-
-      if (this.cursorKeys.left.isDown) {
-        if (this.player.x > this.sys.game.globals.state.navWidth + 10) this.player.moveLeft();
-      } else if (this.cursorKeys.right.isDown) {
-        if (this.player.x < this.game.config.width - this.sys.game.globals.state.navWidth) this.player.moveRight();
-      }
-    }
-
-    if (!this.player.getData('isDead')) {
+    if (!this.player.getData('isDead') && !this.isMobile) {
       this.player.update();
 
       if (this.cursors.up.isDown) {
@@ -278,6 +247,20 @@ export default class MainScene extends Phaser.Scene {
       } else {
         this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
         this.player.setData('isShooting', false);
+      }
+    } else if (!this.player.getData('isDead')) {
+      this.player.update();
+
+      if (this.cursorKeys.up.isDown) {
+        this.player.moveUp();
+      } else if (this.cursorKeys.down.isDown) {
+        this.player.moveDown();
+      }
+
+      if (this.cursorKeys.left.isDown) {
+        if (this.player.x > this.sys.game.globals.state.navWidth + 10) this.player.moveLeft();
+      } else if (this.cursorKeys.right.isDown) {
+        if (this.player.x < this.game.config.width - this.sys.game.globals.state.navWidth) this.player.moveRight();
       }
     }
 

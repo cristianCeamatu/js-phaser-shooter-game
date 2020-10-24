@@ -21,7 +21,6 @@ export default class Player extends Entity {
   }
 
   moveUp() {
-    console.log('player move up');
     this.body.velocity.y = -this.getData('speed');
   }
 
