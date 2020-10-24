@@ -92,21 +92,13 @@ export default class MainScene extends Phaser.Scene {
         base: this.add.circle(0, 0, 100, 0x888888),
         thumb: this.add.circle(0, 80, 80, 0xcccccc),
         dir: '8dir',
-        forceMin: 16,
+        // forceMin: 16,
         // fixed: true,
         enable: true,
       });
 
       this.cursorKeys = this.joystick.createCursorKeys();
-      this.joystickSpaceKey = this.add.circle(width - 110, height - 110, 90, 0xb32d2b).setInteractive();
-      this.joystickSpaceKey.on('pointerdown', () => {
-        this.player.setData('isShooting', true);
-      });
-
-      this.joystickSpaceKey.on('pointerup', () => {
-        this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
-        this.player.setData('isShooting', false);
-      });
+      this.player.setData('isShooting', true);
     }
 
     this.level = new Level(this, this.player.score, { navWidth, width });
