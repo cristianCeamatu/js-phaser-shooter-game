@@ -99,7 +99,7 @@ export default class MainScene extends Phaser.Scene {
 
       this.cursorKeys = this.joystick.createCursorKeys();
       this.joystickSpaceKey = this.add.circle(width - 110, height - 110, 90, 0xb32d2b).setInteractive();
-      this.joystickSpaceKey.on('pointerover', () => {
+      this.joystickSpaceKey.on('pointerdown', () => {
         this.player.setData('isShooting', true);
       });
       this.joystickSpaceKey.on('pointerout', () => {
