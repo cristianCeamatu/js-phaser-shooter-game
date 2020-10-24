@@ -99,17 +99,13 @@ export default class MainScene extends Phaser.Scene {
 
       this.cursorKeys = this.joystick.createCursorKeys();
       this.joystickSpaceKey = this.add.circle(width - 110, height - 110, 90, 0xb32d2b).setInteractive();
-      this.input.on('pointerdown', (pointer, objectsClicked) => {
-        if (objectsClicked[0].type === 'Arc') {
-          this.player.setData('isShooting', true);
-        }
+      this.joystickSpaceKey.on('pointerdown', () => {
+        this.player.setData('isShooting', true);
       });
 
-      this.input.on('pointerout', (pointer, objectsClicked) => {
-        if (objectsClicked[0].type === 'Arc') {
-          this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
-          this.player.setData('isShooting', false);
-        }
+      this.joystickSpaceKey.on('pointerup', () => {
+        this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
+        this.player.setData('isShooting', false);
       });
     }
 

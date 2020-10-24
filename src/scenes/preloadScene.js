@@ -125,10 +125,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio('buttonPressSound', buttonPressSound);
     this.load.audio('metalHit1', metalHit1);
     this.load.audio('drop', drop);
-
-    if (this.sys.game.globals.state.isMobile) {
-      console.log('is mobile preload');
-    }
   }
 
   create() {
