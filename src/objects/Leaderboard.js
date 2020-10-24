@@ -13,13 +13,14 @@ export default class Leaderboard extends Phaser.GameObjects.Text {
     try {
       this.results = await axios(`https://cors-anywhere.herokuapp.com/${this.uri}`);
       this.scores = this.results.data.result;
-      let display = 'Leaderboard\n';
+      let display = 'Leaderboard';
 
       this.scores = [...this.scores].sort((a, b) => b.score - a.score).slice(0, 15);
       this.scores.forEach((score, i) => {
         display += `\n${i + 1}.${score.user} ${score.score}`;
       });
       this.setText(display);
+      this.lineSpacing = -20;
     } catch (error) {
       this.results = false;
     }

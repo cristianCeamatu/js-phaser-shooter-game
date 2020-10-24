@@ -3,6 +3,7 @@ export default class State {
     this.sound = true;
     this.navsWidths = 180;
     this.name = 'unnamed';
+    this.mobile = false;
   }
 
   set soundOn(value) {
@@ -27,5 +28,13 @@ export default class State {
 
   get nickname() {
     return this.name;
+  }
+
+  set isMobile(value) {
+    this.mobile = value;
+  }
+
+  get isMobile() {
+    return this.mobile;
   }
 }

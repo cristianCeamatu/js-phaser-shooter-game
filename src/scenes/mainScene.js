@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 import Phaser from 'phaser';
+
+import VirtualJoystick from 'phaser3-rex-plugins/plugins/virtualjoystick';
 import Level from '../utils/Level';
 import Player from '../objects/Player';
 import Leaderboard from '../objects/Leaderboard';
@@ -13,6 +15,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     const { navWidth, nickname } = this.sys.game.globals.state;
     const { height, width } = this.cameras.main;
+    this.isMobile = this.sys.game.globals.state.isMobile;
     this.centerButton = this.scene.get('MainMenu').centerButton;
     this.centerButtonText = this.scene.get('MainMenu').centerButtonText;
     this.updateAudio = this.scene.get('MainMenu').updateAudio;
@@ -78,8 +81,25 @@ export default class MainScene extends Phaser.Scene {
       this.lifes.add(this.add.image(30 * i + 30, 30, 'player'));
     }
 
-    this.cursors = this.input.keyboard.createCursorKeys();
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    if (!this.isMobile) {
+      this.cursors = this.input.keyboard.createCursorKeys();
+      this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    } else {
+      this.joystick = new VirtualJoystick(this, {
+        x: 110,
+        y: height - 120,
+        radius: 30,
+        base: this.add.circle(0, 0, 100, 0x888888),
+        thumb: this.add.circle(0, 80, 80, 0xcccccc),
+        dir: '8dir',
+        // forceMin: 16,
+        // fixed: true,
+        enable: true,
+      });
+
+      this.cursorKeys = this.joystick.createCursorKeys();
+      this.player.setData('isShooting', true);
+    }
 
     this.level = new Level(this, this.player.score, { navWidth, width });
 
@@ -176,25 +196,13 @@ export default class MainScene extends Phaser.Scene {
         laser.destroy();
       }
     });
-
-    this.input.on('pointerover', (event, gameObjects) => {
-      if (gameObjects[0].type === 'Sprite') {
-        gameObjects[0].setTexture('buttonHover');
-      }
-    });
-
-    this.input.on('pointerout', (event, gameObjects) => {
-      if (gameObjects[0].type === 'Sprite') {
-        gameObjects[0].setTexture('button');
-      }
-    });
   }
 
   update() {
     this.level.update(this.player.getData('score'));
     this.starfield.tilePositionY += 0.4;
 
-    if (!this.player.getData('isDead')) {
+    if (!this.player.getData('isDead') && !this.isMobile) {
       this.player.update();
 
       if (this.cursors.up.isDown) {
@@ -214,6 +222,20 @@ export default class MainScene extends Phaser.Scene {
       } else {
         this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
         this.player.setData('isShooting', false);
+      }
+    } else if (!this.player.getData('isDead')) {
+      this.player.update();
+
+      if (this.cursorKeys.up.isDown) {
+        this.player.moveUp();
+      } else if (this.cursorKeys.down.isDown) {
+        this.player.moveDown();
+      }
+
+      if (this.cursorKeys.left.isDown) {
+        if (this.player.x > this.sys.game.globals.state.navWidth + 10) this.player.moveLeft();
+      } else if (this.cursorKeys.right.isDown) {
+        if (this.player.x < this.game.config.width - this.sys.game.globals.state.navWidth) this.player.moveRight();
       }
     }
 
