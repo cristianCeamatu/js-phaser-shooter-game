@@ -210,12 +210,12 @@ export default class MainScene extends Phaser.Scene {
       }
     });
 
-    this.input.on('pointerout', (pointer, objectsClicked) => {
-      if (objectsClicked[0].type === 'Arc') {
-        this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
-        this.player.setData('isShooting', false);
-      }
-    });
+    // this.input.on('pointerout', (pointer, objectsClicked) => {
+    //   if (objectsClicked[0].type === 'Arc') {
+    //     this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
+    //     this.player.setData('isShooting', false);
+    //   }
+    // });
   }
 
   update() {
