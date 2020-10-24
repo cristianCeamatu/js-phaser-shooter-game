@@ -31,8 +31,9 @@ You can check the updated GDD in [PowerPoint](./gdd/Official_GDD.pptx) (recommen
 
 ## Controls
 
-PC: UP, DOWN, LEFT and RIGHT arrow keys for movement and SPACE for shooting.
-MOBILE: Use joystick displayed on the screen for the movement. Shooting is on auto mode.
+PC: `UP`, `DOWN`, `LEFT` and `RIGHT` arrow keys for movement and `SPACE` for shooting.
+<br>
+MOBILE: Use `joystick` displayed on the screen for the movement. Shooting is on auto mode.
 Demo photo of the joystick:
 ![image](readme-assets/mobile-joystick.png)
 
