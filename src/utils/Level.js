@@ -43,7 +43,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             2,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           );
         } else if (Phaser.Math.Between(0, 10) >= 5) {
           if (this.getEnemiesByType('ChaserShip').length < 5) {
@@ -52,7 +52,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               5,
-              { minVelocity: 50, maxVelocity: 100 }
+              { minVelocity: 50, maxVelocity: 100 },
             );
           }
         } else {
@@ -61,7 +61,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             3,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           );
         }
 
@@ -89,7 +89,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             15,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           );
         } else if (Phaser.Math.Between(0, 10) >= 5) {
           if (this.getEnemiesByType('ChaserShip').length < 5) {
@@ -98,7 +98,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               50,
-              { minVelocity: 50, maxVelocity: 100 }
+              { minVelocity: 50, maxVelocity: 100 },
             );
           }
         } else {
@@ -107,7 +107,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             30,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           );
         }
 
@@ -135,7 +135,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             15,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           );
         } else if (Phaser.Math.Between(0, 10) >= 4) {
           if (this.getEnemiesByType('ChaserShip').length < 10) {
@@ -144,7 +144,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               50,
-              { minVelocity: 50, maxVelocity: 100 }
+              { minVelocity: 50, maxVelocity: 100 },
             );
           }
         } else {
@@ -153,7 +153,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             30,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           );
         }
 
@@ -181,7 +181,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             25,
-            { minVelocity: 100, maxVelocity: 250 }
+            { minVelocity: 100, maxVelocity: 250 },
           );
         } else if (Phaser.Math.Between(0, 10) >= 5) {
           if (this.getEnemiesByType('ChaserShip').length < 5) {
@@ -190,7 +190,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               65,
-              { minVelocity: 100, maxVelocity: 250 }
+              { minVelocity: 100, maxVelocity: 250 },
             );
           }
         } else {
@@ -199,7 +199,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             40,
-            { minVelocity: 100, maxVelocity: 250 }
+            { minVelocity: 100, maxVelocity: 250 },
           );
         }
 
@@ -228,7 +228,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               30,
-              { minVelocity: 200, maxVelocity: 400 }
+              { minVelocity: 200, maxVelocity: 400 },
             );
           }
         } else if (Phaser.Math.Between(0, 10) >= 5) {
@@ -238,7 +238,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               70,
-              { minVelocity: 100, maxVelocity: 250 }
+              { minVelocity: 100, maxVelocity: 250 },
             );
           }
         } else {
@@ -247,7 +247,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             30,
-            { minVelocity: 100, maxVelocity: 250 }
+            { minVelocity: 100, maxVelocity: 250 },
           );
         }
 
@@ -276,7 +276,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               40,
-              { minVelocity: 100, maxVelocity: 250 }
+              { minVelocity: 100, maxVelocity: 250 },
             );
           }
         } else if (Phaser.Math.Between(0, 10) >= 3) {
@@ -286,7 +286,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               40,
-              { minVelocity: 200, maxVelocity: 400 }
+              { minVelocity: 200, maxVelocity: 400 },
             );
           }
         } else if (Phaser.Math.Between(0, 10) >= 3) {
@@ -295,7 +295,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             30,
-            { minVelocity: 100, maxVelocity: 250 }
+            { minVelocity: 100, maxVelocity: 250 },
           );
         } else {
           enemy = new CarrierShip(
@@ -303,7 +303,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             30,
-            { minVelocity: 100, maxVelocity: 250 }
+            { minVelocity: 100, maxVelocity: 250 },
           );
         }
 
@@ -333,7 +333,7 @@ export default class Level {
             {
               minVelocity: 50,
               maxVelocity: 100,
-            }
+            },
           );
           this.bossSpawned = true;
         } else if (Phaser.Math.Between(0, 10) >= 4) {
@@ -342,7 +342,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             30,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           ).setScale(0.5);
         } else if (Phaser.Math.Between(0, 10) >= 4) {
           enemy = new CarrierShip(
@@ -350,7 +350,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             3,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           ).setScale(1.2);
         }
 
@@ -379,7 +379,7 @@ export default class Level {
             {
               minVelocity: 50,
               maxVelocity: 100,
-            }
+            },
           );
         } else if (Phaser.Math.Between(0, 10) >= 5) {
           enemy = new FighterShip(
@@ -387,7 +387,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             30,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           ).setScale(0.5);
         } else if (Phaser.Math.Between(0, 10) >= 5) {
           if (this.getEnemiesByType('AirShip').length < 5) {
@@ -396,7 +396,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               5,
-              { minVelocity: 200, maxVelocity: 400 }
+              { minVelocity: 200, maxVelocity: 400 },
             );
           }
         } else if (Phaser.Math.Between(0, 10) >= 4) {
@@ -406,7 +406,7 @@ export default class Level {
               Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
               0,
               15,
-              { minVelocity: 50, maxVelocity: 100 }
+              { minVelocity: 50, maxVelocity: 100 },
             );
           }
         } else if (Phaser.Math.Between(0, 10) >= 2) {
@@ -415,7 +415,7 @@ export default class Level {
             Phaser.Math.Between(this.navWidth + 20, this.width - this.navWidth - 20),
             0,
             3,
-            { minVelocity: 50, maxVelocity: 100 }
+            { minVelocity: 50, maxVelocity: 100 },
           );
         }
 
