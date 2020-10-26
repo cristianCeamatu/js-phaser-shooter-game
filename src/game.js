@@ -2,7 +2,6 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Phaser from 'phaser';
-import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin';
 
 import './assets/style.scss';
 
@@ -36,16 +35,6 @@ const config = {
       debug: false,
       gravity: { y: 0 },
     },
-  },
-  plugins: {
-    global: [
-      {
-        key: 'rexVirtualJoystick',
-        plugin: VirtualJoystickPlugin,
-        start: true,
-      },
-      // ...
-    ],
   },
 };
 
