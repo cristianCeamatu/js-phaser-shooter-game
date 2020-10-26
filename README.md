@@ -35,6 +35,7 @@ PC: `UP`, `DOWN`, `LEFT` and `RIGHT` arrow keys for movement and `SPACE` for sho
 <br>
 MOBILE: Use `joystick` displayed on the screen for the movement. Shooting is on auto mode.
 Demo photo of the joystick:
+<br>
 ![image](readme-assets/mobile-joystick.png)
 
 
