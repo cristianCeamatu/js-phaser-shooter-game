@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    main: './src/index.js',
+    main: './src/game.js',
   },
   output: {
     filename: '[name].js',
@@ -25,8 +25,12 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(gif|png|jpe?g|svg|xml)$/,
         use: ['file-loader'],
+      },
+      {
+        test: /\.(wav|ogg|mp3|m4a)$/i,
+        use: 'file-loader',
       },
     ],
   },

@@ -1,0 +1,26 @@
+Morning
+Add left and right side navs
+Add score collection functionality and score display on the right
+Add player lifes and display them on the left sidenav
+Add a shield after each respawn/hit
+
+Afternoon
+Add form to get the nickname before starting the game
+Add the nickname of the player in the right top corner
+Submit the score automatticaly when game over
+Add high scores on the right with loading functionality
+Display gameover text and restart button when dead
+Add sound on/off button to main scene
+Make carriers with HP/Hits
+
+
+Extra (if time or next sprint)
+Add sound for player laser to enemy laser
+Add shield animation
+Make carriers drop lifes or weapon upgrades
+
+Follow the other tutorials to implement:
+Add levels
+Add boss
+Add other enemies
+add points count after explosion of enemy

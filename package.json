@@ -4,11 +4,12 @@
   "description": "node_modules/",
   "private": true,
   "scripts": {
-    "jest": "jest",
+    "test": "jest",
+    "test:watch": "jest --watchAll --testPathPattern=__tests__/api.test.js",
     "eslint": "eslint .",
     "stylelint": "stylelint \"**/*.scss\"",
     "fix": "stylelint --fix \"**/*.scss\" && eslint . --fix",
-    "test": "npm run fix && npm run stylelint && npm run eslint && echo '🎉 All test pass 🎉'",
+    "linters": "npm run fix && npm run stylelint && npm run eslint && echo '🎉 All test pass 🎉'",
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development",
     "dev": "webpack-dev-server --mode=development"
@@ -25,8 +26,11 @@
   },
   "homepage": "https://github.com/cristianCeamatu/template-eslint-stylelint#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.11.5",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@testing-library/jest-dom": "^5.11.4",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.1",
     "css-loader": "^4.3.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
@@ -34,6 +38,7 @@
     "file-loader": "^6.1.0",
     "jest": "^26.5.3",
     "node-sass": "^4.14.1",
+    "regenerator-runtime": "^0.13.7",
     "sass": "^1.26.12",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.3.0",
@@ -46,8 +51,12 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
+    "express": "^4.17.1",
     "jquery": "^3.5.1",
+    "phaser": "^3.24.1",
+    "phaser3-rex-plugins": "^1.1.31",
     "popper.js": "^1.16.1"
   }
 }
