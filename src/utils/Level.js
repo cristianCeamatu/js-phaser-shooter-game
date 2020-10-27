@@ -472,7 +472,7 @@ export default class Level {
           this.bank = false;
         }
       }, 7000);
-    } else if (score > 15 && this.currentLevel === 0) {
+    } else if (score > 15000 && this.currentLevel === 5) {
       this.level.remove();
       this.level = this.boss();
       this.changeLevelText('Boss mode', this.levelTexts[6], this.currentLevel);
